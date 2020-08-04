@@ -1,4 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Aug 04 11:57:07 SGT 2020
+#Tue Aug 04 15:20:09 SGT 2020
 tomcat-embed-core-9.0.37.jar>central=
+tomcat-embed-core-9.0.37-sources.jar>central=
 tomcat-embed-core-9.0.37.pom>central=

@@ -2,6 +2,9 @@ package com.droolsUIEngine.droolsUIEngine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DroolsUiEngineApplication {
@@ -10,4 +13,8 @@ public class DroolsUiEngineApplication {
 		SpringApplication.run(DroolsUiEngineApplication.class, args);
 	}
 
+	@Bean
+	public KieContainer kieContainer() {
+		return KieServices.Factory.get().getKieClasspathContainer();
+	}
 }
