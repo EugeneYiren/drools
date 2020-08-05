@@ -10,6 +10,7 @@
     "prettier",
     "prettier/react"
   ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -29,6 +30,7 @@
     "no-var": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-use-before-define": "off",
-    "no-console": "warn"
+    "no-console": "warn",
+    "react/prefer-stateless-function": "off"
   }
 }
