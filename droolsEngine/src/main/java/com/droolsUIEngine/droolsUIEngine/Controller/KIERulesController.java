@@ -3,10 +3,7 @@ package com.droolsUIEngine.droolsUIEngine.Controller;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.droolsUIEngine.droolsUIEngine.Models.*;
 import com.droolsUIEngine.droolsUIEngine.Service.KIERulesService;
@@ -21,8 +18,8 @@ public class KIERulesController {
         this.KIERulesService = KIERulesService;
     }
 
-    @RequestMapping(value = "/new_rule", method = RequestMethod.GET, produces = "application/json")
-    public void NewRuleCreation(@RequestParam(required = true) String type) {
+    @RequestMapping(value = "/new_rule", method = RequestMethod.POST, produces = "application/json")
+    public void NewRuleCreation(String[] arr) {
         KieContainer container=KIERulesService.build(KieServices.Factory.get());
         System.out.println(container.getReleaseId());
         System.out.println(container.getKieBase());

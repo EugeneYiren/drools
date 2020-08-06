@@ -115,7 +115,18 @@ class HomePage extends Component {
       fundMasterList
     )
 
-    postNewRule(newRuleResponse)
+    postNewRule([
+      hkRegulated,
+      direction,
+      productType,
+      productSubType,
+      executionType,
+      investmentHorizon,
+      productTenor,
+      tenor,
+      vcStatus,
+      fundMasterList,
+    ])
   }
 
   render() {
