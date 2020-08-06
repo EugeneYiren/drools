@@ -101,7 +101,7 @@ public class KIERulesService {
             for (File child : directoryListing) {
                 try {
                     FileInputStream fis = new FileInputStream("src/main/resources/rules/" + child.getName());
-                    kfs.write("src/main/resources/simple.drl",
+                    kfs.write("src/main/resources/rules/"+ child.getName(),
                             kieServices.getResources().newInputStreamResource(fis));
                 } catch (Exception e) {
                     e.printStackTrace();
