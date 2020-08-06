@@ -1,0 +1,13 @@
+package rules 
+
+import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon
+
+rule "SPAR_Investment_Horizon_1"
+when
+    $a : SPAR_Investment_Horizon( HKRegulated == "N" )  
+then
+$a.setTest( true );
+
+end
+
+
