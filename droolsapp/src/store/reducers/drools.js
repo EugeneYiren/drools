@@ -7,28 +7,28 @@ import {
 } from '../actions/drools'
 
 const INITIAL_STATE = {
-  testStateIsLoading: false,
-  testState: [],
-  testStateError: null,
+  postNewRuleIsLoading: false,
+  postNewRule: [],
+  postNewRuleError: null,
 }
 
 const postNewRule = (state = INITIAL_STATE) => ({
   ...state,
-  testStateIsLoading: true,
-  testStateError: null,
+  postNewRuleIsLoading: true,
+  postNewRuleError: null,
 })
 
 const postNewRuleSuccess = (state = INITIAL_STATE, { payload }) => ({
   ...state,
-  testStateIsLoading: false,
-  testState: payload.data,
-  testStateError: null,
+  postNewRuleIsLoading: false,
+  postNewRule: payload.data,
+  postNewRuleError: null,
 })
 
 const postNewRuleFailure = (state = INITIAL_STATE, { payload }) => ({
   ...state,
-  testStateIsLoading: false,
-  testStateError: payload.error,
+  postNewRuleIsLoading: false,
+  postNewRuleError: payload.error,
 })
 
 const ACTION_HANDLERS = {
