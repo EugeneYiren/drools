@@ -18,9 +18,14 @@ public class KIERulesController {
         this.KIERulesService = KIERulesService;
     }
 
+
     @RequestMapping(value = "/new_rule", method = RequestMethod.POST, produces = "application/json")
-    public void NewRuleCreation(String[] arr) {
-        KieContainer container=KIERulesService.build(KieServices.Factory.get());
+    public void NewRuleCreation(@RequestParam(required = true) String arr) {
+        SPAR_Investment_Horizon s = new SPAR_Investment_Horizon();
+        //s.setValues(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9]);
+        s.setValues("N", "Buy", "12", "12", "12",
+                "12", "12", "12", "12", "12");
+        KieContainer container=KIERulesService.build(KieServices.Factory.get(),s);
         System.out.println(container.getReleaseId());
         System.out.println(container.getKieBase());
     }

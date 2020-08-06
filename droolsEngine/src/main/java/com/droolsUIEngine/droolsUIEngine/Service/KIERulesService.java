@@ -2,8 +2,8 @@ package com.droolsUIEngine.droolsUIEngine.Service;
 
 import com.google.common.io.Resources;
 import org.drools.compiler.lang.DrlDumper;
-import org.drools.compiler.lang.api.DescrFactory;
-import org.drools.compiler.lang.api.PackageDescrBuilder;
+import org.drools.compiler.lang.api.*;
+import org.drools.compiler.lang.descr.AndDescr;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
@@ -38,7 +38,7 @@ public class KIERulesService {
         }
     }
 
-    public KieContainer build(KieServices kieServices) {
+    public KieContainer build(KieServices kieServices, SPAR_Investment_Horizon s) {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
         ReleaseId rid = kieServices.newReleaseId("com.example.rulesengine",
                 "model-test", "1.0-SNAPSHOT");
@@ -47,7 +47,7 @@ public class KIERulesService {
         kieFileSystem.write("rules/rules.drl",
                 getResource(kieServices, "rules/rules.drl"));
 
-        addRule(kieFileSystem);
+        addRule(kieFileSystem, s);
 
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
@@ -59,26 +59,59 @@ public class KIERulesService {
         return kieServices.newKieContainer(rid);
     }
 
-    private void addRule(KieFileSystem kieFileSystem) {
-        PackageDescrBuilder packageDescrBuilder = DescrFactory.newPackage();
-        packageDescrBuilder
+    private void addRule(KieFileSystem kieFileSystem, SPAR_Investment_Horizon s) {
+        /*PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
+
+        pkgDescrBuilder
                 .name("rules")
                 .newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon").end()
                 .newRule()
                 .name("SPAR_Investment_Horizon_1")
                 .lhs()
-                .pattern("SPAR_Investment_Horizon").constraint("HKRegulated == \"N\"")//.end()
+                .pattern("SPAR_Investment_Horizon").constraint("HKRegulated == " + "\"" + s.HKRegulated + "\"")
                 //.pattern()
                 .id("$a", false).end()
                 .end()
                 .rhs("$a.setTest( true );")
                 .end();
+        */
 
-        String rules = new DrlDumper().dump(packageDescrBuilder.getDescr());
-        kieFileSystem.write("src/main/resources/rules/rules1.drl", rules);
+        PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
+        pkgDescrBuilder.name("rules").getDescr();
+        pkgDescrBuilder.newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon");
+        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_Investment_Horizon_1");
+        CEDescrBuilder<RuleDescrBuilder, AndDescr> lhsBuilder = ruleBuilder.lhs();
+        PatternDescrBuilder<CEDescrBuilder<RuleDescrBuilder, AndDescr>> patternBuilder = lhsBuilder.pattern("SPAR_Investment_Horizon").id("$a", false);
+        patternBuilder.constraint("HKRegulated == " + "\"" + s.HKRegulated + "\"").end();
+        patternBuilder.constraint("Direction == " + "\"" + s.Direction + "\"").end();
+        patternBuilder.constraint("ProductType == " + "\"" + s.ProductType + "\"").end();
+        patternBuilder.constraint("ProductSubType == " + "\"" + s.ProductSubType + "\"").end();
+        patternBuilder.constraint("ExecutionType == " + "\"" + s.ExecutionType + "\"").end();
+        patternBuilder.constraint("InvestmentHorizon == " + "\"" + s.InvestmentHorizon + "\"").end();
+        patternBuilder.constraint("ProductTenor == " + "\"" + s.ProductTenor + "\"").end();
+        patternBuilder.constraint("Tenor == " + "\"" + s.Tenor + "\"").end();
+        patternBuilder.constraint("vc == " + "\"" + s.vc + "\"").end();
+        patternBuilder.constraint("FundMasterList == " + "\"" + s.FundMasterList + "\"").end();
+        ruleBuilder.rhs("$a.setTest(true);").end();
+
+        int counter = 0;
+        File dir = new File("src/main/resources/rules/");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                try {
+                    counter++;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        String rules = new DrlDumper().dump(pkgDescrBuilder.getDescr());
+        kieFileSystem.write("src/main/resources/rules/rules"+counter+".drl", rules);
         try{
             // create new file
-            File file = new File("src/main/resources/rules/rules1.drl");
+            File file = new File("src/main/resources/rules/rules"+counter+".drl");
             file.createNewFile();
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
