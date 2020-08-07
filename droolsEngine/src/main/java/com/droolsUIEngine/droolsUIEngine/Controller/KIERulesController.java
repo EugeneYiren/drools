@@ -20,17 +20,35 @@ public class KIERulesController {
         this.KIERulesService = KIERulesService;
     }
 
+    @RequestMapping(value = "/v0/rule/new-rule/SPAR-PRR-CPR", method = RequestMethod.POST, produces = "application/json")
+    public void NewRuleCreationSPARPRRCPR(@RequestBody(required = true) String paramJSON) {
+        Gson g = new Gson();
+        SPAR_PRR_CPR s = g.fromJson(paramJSON, SPAR_PRR_CPR.class);
+        KieContainer container=KIERulesService.build(KieServices.Factory.get(),null, null, s);
+        System.out.println(container.getReleaseId());
+        System.out.println(container.getKieBase());
+    }
+
+    @RequestMapping(value = "v0/rule/get-rule/SPAR-PRR-CPR", method = RequestMethod.GET, produces = "application/json")
+    public SPAR_PRR_CPR SPARPRRCPR(@RequestParam(required = true) String HKRegulated, String Direction, String ProductType, String ProductSubType, String HYBFIndicator,
+                                                String ExecutionType, String VCStatus, String HedgingIndicator, String CPR, String PRR, String isPRRMoreThanOREqualsToCPR) {
+
+        SPAR_PRR_CPR sparPrrCpr = new SPAR_PRR_CPR();
+        sparPrrCpr.setValues(HKRegulated, Direction, ProductType, ProductSubType, HYBFIndicator, ExecutionType, VCStatus, HedgingIndicator, CPR, PRR,  isPRRMoreThanOREqualsToCPR, "");
+        KIERulesService.getRulesForPRRCPR(sparPrrCpr);
+        return sparPrrCpr;
+    }
 
     @RequestMapping(value = "/v0/rule/new-rule/SPAR-Investment-Objective", method = RequestMethod.POST, produces = "application/json")
     public void NewRuleCreationSPAROBJ(@RequestBody(required = true) String paramJSON) {
         Gson g = new Gson();
         SPAR_Investment_Objective s = g.fromJson(paramJSON, SPAR_Investment_Objective.class);
-        KieContainer container=KIERulesService.build(KieServices.Factory.get(),null, s);
+        KieContainer container=KIERulesService.build(KieServices.Factory.get(),null, s, null);
         System.out.println(container.getReleaseId());
         System.out.println(container.getKieBase());
     }
 
-    @RequestMapping(value = "v0/rule/get-rule/SPAR_Investment_Objective", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "v0/rule/get-rule/SPAR-Investment-Objective", method = RequestMethod.GET, produces = "application/json")
     public SPAR_Investment_Objective SPARInvestmentObjective(@RequestParam(required = true) String HKRegulated, String Direction, String ProductType, String ProductSubType, String ExecutionType,
                                                            String VCStatus, String ClientInvObjective, String ProductInvObjective) {
 
@@ -44,12 +62,12 @@ public class KIERulesController {
     public void NewRuleCreationSPARInv(@RequestBody(required = true) String paramJSON) {
         Gson g = new Gson();
         SPAR_Investment_Horizon s = g.fromJson(paramJSON, SPAR_Investment_Horizon.class);
-        KieContainer container=KIERulesService.build(KieServices.Factory.get(),s, null);
+        KieContainer container=KIERulesService.build(KieServices.Factory.get(),s, null, null);
         System.out.println(container.getReleaseId());
         System.out.println(container.getKieBase());
     }
 
-    @RequestMapping(value = "v0/rule/get-rule/SPAR_Investment_Horizon", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "v0/rule/get-rule/SPAR-Investment-Horizon", method = RequestMethod.GET, produces = "application/json")
     public SPAR_Investment_Horizon SPARInvestmentHorizon(@RequestParam(required = true) String HKRegulated, String Direction, String ProductType, String ProductSubType, String ExecutionType,
                                 String InvestmentHorizon, String ProductTenor, String Tenor, String VC, String FundMasterList) {
 

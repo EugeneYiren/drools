@@ -39,7 +39,7 @@ public class KIERulesService {
         }
     }
 
-    public KieContainer build(KieServices kieServices, SPAR_Investment_Horizon invHor, SPAR_Investment_Objective invObj) {
+    public KieContainer build(KieServices kieServices, SPAR_Investment_Horizon invHor, SPAR_Investment_Objective invObj, SPAR_PRR_CPR cprObj) {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
         ReleaseId rid = kieServices.newReleaseId("com.example.rulesengine",
                 "model-test", "1.0-SNAPSHOT");
@@ -48,7 +48,7 @@ public class KIERulesService {
         kieFileSystem.write("rules/rules.drl",
                 getResource(kieServices, "rules/rules.drl"));
 
-        addRule(kieFileSystem, invHor, invObj);
+        addRule(kieFileSystem, invHor, invObj, cprObj);
 
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
@@ -60,7 +60,7 @@ public class KIERulesService {
         return kieServices.newKieContainer(rid);
     }
 
-    private void addRule(KieFileSystem kieFileSystem, @Nullable SPAR_Investment_Horizon invHor, @Nullable SPAR_Investment_Objective invObj) {
+    private void addRule(KieFileSystem kieFileSystem, @Nullable SPAR_Investment_Horizon invHor, @Nullable SPAR_Investment_Objective invObj, @Nullable SPAR_PRR_CPR cprObj ) {
         /*PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
 
         pkgDescrBuilder
@@ -82,6 +82,8 @@ public class KIERulesService {
             pkgDescrBuilder = PackageBuilder.addRule(invHor);
         else if(invObj != null)
             pkgDescrBuilder = PackageBuilder.addRule(invObj);
+        else if(cprObj !=null)
+            pkgDescrBuilder = PackageBuilder.addRule(cprObj);
 
         int counter = 0;
         File dir = new File("src/main/resources/rules/");
@@ -179,5 +181,38 @@ public class KIERulesService {
         kieSession.fireAllRules();
         kieSession.dispose();
         return invObjective;
+    }
+
+    public SPAR_PRR_CPR getRulesForPRRCPR(SPAR_PRR_CPR sparPrrCpr) {
+        KieServices kieServices = KieServices.Factory.get();
+        KieFileSystem kfs = kieServices.newKieFileSystem();
+        File dir = new File("src/main/resources/rules/");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                try {
+                    FileInputStream fis = new FileInputStream("src/main/resources/rules/" + child.getName());
+                    kfs.write("src/main/resources/rules/"+ child.getName(),
+                            kieServices.getResources().newInputStreamResource(fis));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        KieBuilder kieBuilder = kieServices.newKieBuilder( kfs ).buildAll();
+        Results results = kieBuilder.getResults();
+        if( results.hasMessages( Message.Level.ERROR ) ){
+            System.out.println( results.getMessages() );
+            throw new IllegalStateException( "### errors ###" );
+        }
+        KieContainer kieContainer =
+                kieServices.newKieContainer( kieServices.getRepository().getDefaultReleaseId() );
+        KieBase kieBase = kieContainer.getKieBase();
+        KieSession kieSession = kieContainer.newKieSession();
+
+        kieSession.insert(sparPrrCpr);
+        kieSession.fireAllRules();
+        kieSession.dispose();
+        return sparPrrCpr;
     }
 }

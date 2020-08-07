@@ -2,6 +2,7 @@ package com.droolsUIEngine.droolsUIEngine.Service;
 
 import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon;
 import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Objective;
+import com.droolsUIEngine.droolsUIEngine.Models.SPAR_PRR_CPR;
 import org.drools.compiler.lang.api.*;
 import org.drools.compiler.lang.descr.AndDescr;
 
@@ -43,6 +44,27 @@ public class PackageBuilder {
         patternBuilder.constraint("VCStatus == " + "\"" + s.VCStatus + "\"").end();
         patternBuilder.constraint("ClientInvObjective == " + "\"" + s.ClientInvObjective + "\"").end();
         patternBuilder.constraint("ProductInvObjective == " + "\"" + s.ProductInvObjective + "\"").end();
+        ruleBuilder.rhs("$a.setStatus(\"" + s.Status + "\");").end();
+        return pkgDescrBuilder;
+    }
+
+    public static PackageDescrBuilder addRule(SPAR_PRR_CPR s){
+        PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
+        pkgDescrBuilder.name("rules").getDescr();
+        pkgDescrBuilder.newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_PRR_CPR");
+        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_PRR_CPR_1");
+        CEDescrBuilder<RuleDescrBuilder, AndDescr> lhsBuilder = ruleBuilder.lhs();
+        PatternDescrBuilder<CEDescrBuilder<RuleDescrBuilder, AndDescr>> patternBuilder = lhsBuilder.pattern("SPAR_PRR_CPR").id("$a", false);
+        patternBuilder.constraint("HKRegulated == " + "\"" + s.HKRegulated + "\"").end();
+        patternBuilder.constraint("Direction == " + "\"" + s.Direction + "\"").end();
+        patternBuilder.constraint("ProductType == " + "\"" + s.ProductType + "\"").end();
+        patternBuilder.constraint("ProductSubType == " + "\"" + s.ProductSubType + "\"").end();
+        patternBuilder.constraint("HYBFIndicator == " + "\"" + s.HYBFIndicator + "\"").end();
+        patternBuilder.constraint("ExecutionType == " + "\"" + s.ExecutionType + "\"").end();
+        patternBuilder.constraint("VCStatus == " + "\"" + s.VCStatus + "\"").end();
+        patternBuilder.constraint("CPR == " + "\"" + s.CPR + "\"").end();
+        patternBuilder.constraint("PRR == " + "\"" + s.PRR + "\"").end();
+        patternBuilder.constraint("isPRRMoreThanOREqualsToCPR == " + "\"" + s.isPRRMoreThanOREqualsToCPR + "\"").end();
         ruleBuilder.rhs("$a.setStatus(\"" + s.Status + "\");").end();
         return pkgDescrBuilder;
     }
