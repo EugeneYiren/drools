@@ -64,7 +64,7 @@ public class PackageBuilder {
         patternBuilder.constraint("VCStatus == " + "\"" + s.VCStatus + "\"").end();
         patternBuilder.constraint("CPR == " + "\"" + s.CPR + "\"").end();
         patternBuilder.constraint("PRR == " + "\"" + s.PRR + "\"").end();
-        patternBuilder.constraint("isPRRMoreThanOREqualsToCPR == " + "\"" + s.isPRRMoreThanOREqualsToCPR + "\"").end();
+        patternBuilder.constraint("IsPRRMoreThanOREqualsToCPR == " + "\"" + s.IsPRRMoreThanOREqualsToCPR + "\"").end();
         ruleBuilder.rhs("$a.setStatus(\"" + s.Status + "\");").end();
         return pkgDescrBuilder;
     }

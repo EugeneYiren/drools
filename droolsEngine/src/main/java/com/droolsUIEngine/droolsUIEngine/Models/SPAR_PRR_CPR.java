@@ -11,11 +11,11 @@ public class SPAR_PRR_CPR {
     public String HedgingIndicator;
     public String CPR;
     public String PRR;
-    public String isPRRMoreThanOREqualsToCPR;
+    public String IsPRRMoreThanOREqualsToCPR;
     public String Status;
 
     public void setValues(String HKRegulated, String Direction, String ProductType, String ProductSubType, String HYBFIndicator, String ExecutionType,
-                          String VCStatus, String HedgingIndicator, String CPR, String PRR, String isPRRMoreThanOREqualsToCPR, String Status){
+                          String VCStatus, String HedgingIndicator, String CPR, String PRR, String IsPRRMoreThanOREqualsToCPR, String Status){
         this.HKRegulated = HKRegulated;
         this.Direction = Direction;
         this.ProductType = ProductType;
@@ -26,7 +26,7 @@ public class SPAR_PRR_CPR {
         this.HedgingIndicator = HedgingIndicator;
         this.CPR = CPR;
         this.PRR = PRR;
-        this.isPRRMoreThanOREqualsToCPR = isPRRMoreThanOREqualsToCPR;
+        this.IsPRRMoreThanOREqualsToCPR = IsPRRMoreThanOREqualsToCPR;
         this.Status = Status;
     }
 
