@@ -2,65 +2,33 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import Badge from '@material-ui/core/Badge'
-import NotificationsIcon from '@material-ui/icons/Notifications'
-import Container from '@material-ui/core/Container'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
 
-import { postNewRule as postNewRuleAction } from '../store/actions/drools'
-import { createNewRuleResponse } from '../utils/services'
 import {
-  INVESTMENT_HORIZON,
-  INVESTMENT_HORIZON_MAPPING,
-} from '../utils/constants'
+  postInvestmentHorizonRule as postInvestmentHorizonRuleAction,
+  postInvestmentObjectiveRule as postInvestmentObjectiveRuleAction,
+  postPrrCprRule as postPrrCprRuleAction,
+} from '../store/actions/drools'
+import CreateNewRule from '../components/createNewRule'
+import SubmitNewRule from '../components/submitNewRule'
+import TopAppBar from '../components/topAppBar'
 
 const useStyles = (theme) => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-    height: 240,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 160,
+    padding: theme.spacing(3),
   },
 })
 
@@ -68,65 +36,52 @@ class HomePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      hkRegulated: '',
-      direction: '',
-      productType: '',
-      productSubType: '',
-      executionType: '',
-      investmentHorizon: '',
-      productTenor: '',
-      tenor: '',
-      vcStatus: '',
-      fundMasterList: '',
+      component: 'Create New Rule',
     }
   }
 
-  handleChange = (e) => {
+  handleCreateNewRuleClick = () => {
     this.setState({
-      [e.target.name]: e.target.value,
+      component: 'Create New Rule',
     })
   }
 
-  handleSubmitButton = () => {
-    const { postNewRule } = this.props
+  handleOMSClick = () => {
+    this.setState({
+      component: 'OMS',
+    })
+  }
+
+  renderComponent = () => {
+    const { component } = this.state
+    if (component === 'Create New Rule')
+      return (
+        <CreateNewRule onSubmitButtonClick={this.handleSubmitButtonClick} />
+      )
+    if (component === 'OMS') return null
+    if (component === 'Submit New Rule')
+      return <SubmitNewRule onBackButtonClick={this.handleCreateNewRuleClick} />
+
+    return null
+  }
+
+  handleSubmitButtonClick = (response, ruleName) => {
     const {
-      hkRegulated,
-      direction,
-      productType,
-      productSubType,
-      executionType,
-      investmentHorizon,
-      productTenor,
-      tenor,
-      vcStatus,
-      fundMasterList,
-    } = this.state
+      postInvestmentHorizonRule,
+      postInvestmentObjectiveRule,
+      postPrrCprRule,
+    } = this.props
+    this.setState({
+      component: 'Submit New Rule',
+    })
 
-    const newRuleResponse = createNewRuleResponse(
-      hkRegulated,
-      direction,
-      productType,
-      productSubType,
-      executionType,
-      investmentHorizon,
-      productTenor,
-      tenor,
-      vcStatus,
-      fundMasterList
-    )
-
-    postNewRule([
-      hkRegulated,
-      direction,
-      productType,
-      productSubType,
-      executionType,
-      investmentHorizon,
-      productTenor,
-      tenor,
-      vcStatus,
-      fundMasterList,
-    ])
+    if (ruleName === 'Investment Horizon') {
+      postInvestmentHorizonRule(response)
+    } else if (ruleName === 'Investment Objective') {
+      postInvestmentObjectiveRule(response)
+    } else if (ruleName === 'PRR CPR') {
+      postPrrCprRule(response)
+    }
   }
 
   render() {
@@ -135,61 +90,13 @@ class HomePage extends Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="absolute">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              Dashboard
-            </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+        <TopAppBar
+          onCreateNewRuleClick={this.handleCreateNewRuleClick}
+          onOMSClick={this.handleOMSClick}
+        />
         <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-            <Typography variant="h5">Investment Horizon</Typography>
-            {Object.keys(INVESTMENT_HORIZON).map((entries) => (
-              <FormControl key={entries} className={classes.formControl}>
-                <InputLabel>{INVESTMENT_HORIZON_MAPPING[entries]}</InputLabel>
-                <Select
-                  // eslint-disable-next-line react/destructuring-assignment
-                  value={this.state[entries]}
-                  inputProps={{
-                    name: entries,
-                  }}
-                  onChange={this.handleChange}
-                >
-                  {INVESTMENT_HORIZON[entries].map((item) => (
-                    <MenuItem key={item} value={item}>
-                      {item}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            ))}
-          </Container>
-          <Container maxWidth="lg">
-            <Button variant="contained" onClick={this.handleSubmitButton}>
-              Submit
-            </Button>
-          </Container>
+          <div className={classes.toolbar} />
+          {this.renderComponent()}
         </main>
       </div>
     )
@@ -198,23 +105,19 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
-  postNewRule: PropTypes.func.isRequired,
-  postNewRuleIsLoading: PropTypes.bool,
-  postNewRuleError: PropTypes.shape({}),
+  postInvestmentHorizonRule: PropTypes.func.isRequired,
+  postInvestmentObjectiveRule: PropTypes.func.isRequired,
+  postPrrCprRule: PropTypes.func.isRequired,
 }
 
-HomePage.defaultProps = {
-  postNewRuleIsLoading: false,
-  postNewRuleError: null,
-}
+HomePage.defaultProps = {}
 
-const mapStateToProps = (store) => ({
-  postNewRuleIsLoading: store.drools.postNewRuleIsLoading,
-  postNewRuleError: store.drools.postNewRuleError,
-})
+const mapStateToProps = () => ({})
 
 const mapDispatchToProps = {
-  postNewRule: postNewRuleAction,
+  postInvestmentHorizonRule: postInvestmentHorizonRuleAction,
+  postInvestmentObjectiveRule: postInvestmentObjectiveRuleAction,
+  postPrrCprRule: postPrrCprRuleAction,
 }
 
 export default withRouter(

@@ -1,7 +1,11 @@
 import axios from 'axios'
 import { v1 as uuidv1 } from 'uuid'
 
-import { generateUrlPostNewRule } from './urlGenerator'
+import {
+  generateUrlPostInvestmentHorizonRule,
+  generateUrlPostInvestmentObjectiveRule,
+  generateUrlPostPrrCprRule,
+} from './urlGenerator'
 
 let headers = {}
 
@@ -22,7 +26,20 @@ const setRequestHeader = (requestId) => {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export const postNewRule = (newRuleResponse) => {
+export const postInvestmentHorizonRule = (newRuleResponse) => {
   setRequestHeader(`POST_NEW_RULE_${uuidv1()}`)
-  return axiosApi.post(generateUrlPostNewRule(), newRuleResponse)
+  return axiosApi.post(generateUrlPostInvestmentHorizonRule(), newRuleResponse)
+}
+
+export const postInvestmentObjectiveRule = (newRuleResponse) => {
+  setRequestHeader(`POST_NEW_RULE_${uuidv1()}`)
+  return axiosApi.post(
+    generateUrlPostInvestmentObjectiveRule(),
+    newRuleResponse
+  )
+}
+
+export const postPrrCprRule = (newRuleResponse) => {
+  setRequestHeader(`POST_NEW_RULE_${uuidv1()}`)
+  return axiosApi.post(generateUrlPostPrrCprRule(), newRuleResponse)
 }

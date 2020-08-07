@@ -3,7 +3,13 @@ import { all, fork } from 'redux-saga/effects'
 import DroolsSaga from './drools'
 
 export default function* root() {
-  const { watchPostNewRule } = DroolsSaga()
+  const {
+    watchPostInvestmentHorizonRule,
+    watchPostInvestmentObjectiveRule,
+    watchPostPrrCprRule,
+  } = DroolsSaga()
 
-  yield all([fork(watchPostNewRule)])
+  yield all([fork(watchPostInvestmentHorizonRule)])
+  yield all([fork(watchPostInvestmentObjectiveRule)])
+  yield all([fork(watchPostPrrCprRule)])
 }

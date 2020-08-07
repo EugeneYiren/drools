@@ -1,25 +1,9 @@
-export const createNewRuleResponse = (
-  hkRegulated,
-  direction,
-  productType,
-  productSubType,
-  executionType,
-  investmentHorizon,
-  productTenor,
-  tenor,
-  vcStatus,
-  fundMasterList
-) => ({
-  HKRegulated: hkRegulated,
-  Direction: direction,
-  ProductType: productType,
-  ProductSubType: productSubType,
-  ExecutionType: executionType,
-  InvestmentHorizon: investmentHorizon,
-  ProductTenor: productTenor,
-  Tenor: tenor,
-  VC: vcStatus,
-  FundMasterList: fundMasterList,
-})
+export const createNewRuleResponse = (obj) => {
+  const newRuleResponseObj = {}
+  // eslint-disable-next-line no-return-assign
+  Object.keys(obj).map((key) => (newRuleResponseObj[key] = obj[key]))
+
+  return JSON.stringify(newRuleResponseObj)
+}
 
 export default {}
