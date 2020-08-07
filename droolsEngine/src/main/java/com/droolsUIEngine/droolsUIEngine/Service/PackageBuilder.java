@@ -49,6 +49,7 @@ public class PackageBuilder {
     }
 
     public static PackageDescrBuilder addRule(SPAR_PRR_CPR s){
+        System.out.println(s.IsPRRMoreThanOREqualsToCPR);
         PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
         pkgDescrBuilder.name("rules").getDescr();
         pkgDescrBuilder.newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_PRR_CPR");
@@ -62,6 +63,7 @@ public class PackageBuilder {
         patternBuilder.constraint("HYBFIndicator == " + "\"" + s.HYBFIndicator + "\"").end();
         patternBuilder.constraint("ExecutionType == " + "\"" + s.ExecutionType + "\"").end();
         patternBuilder.constraint("VCStatus == " + "\"" + s.VCStatus + "\"").end();
+        patternBuilder.constraint("HedgingIndicator == " + "\"" + s.HedgingIndicator + "\"").end();
         patternBuilder.constraint("CPR == " + "\"" + s.CPR + "\"").end();
         patternBuilder.constraint("PRR == " + "\"" + s.PRR + "\"").end();
         patternBuilder.constraint("IsPRRMoreThanOREqualsToCPR == " + "\"" + s.IsPRRMoreThanOREqualsToCPR + "\"").end();

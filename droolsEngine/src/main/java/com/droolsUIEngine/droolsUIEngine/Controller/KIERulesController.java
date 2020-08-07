@@ -32,9 +32,8 @@ public class KIERulesController {
     @RequestMapping(value = "v0/rule/get-rule/SPAR-PRR-CPR", method = RequestMethod.GET, produces = "application/json")
     public SPAR_PRR_CPR SPARPRRCPR(@RequestParam(required = true) String HKRegulated, String Direction, String ProductType, String ProductSubType, String HYBFIndicator,
                                                 String ExecutionType, String VCStatus, String HedgingIndicator, String CPR, String PRR, String IsPRRMoreThanOREqualsToCPR) {
-
         SPAR_PRR_CPR sparPrrCpr = new SPAR_PRR_CPR();
-        sparPrrCpr.setValues(HKRegulated, Direction, ProductType, ProductSubType, HYBFIndicator, ExecutionType, VCStatus, HedgingIndicator, CPR, PRR,  IsPRRMoreThanOREqualsToCPR, "NA");
+        sparPrrCpr.setValues(HKRegulated, Direction, ProductType, ProductSubType, HYBFIndicator, ExecutionType, VCStatus, HedgingIndicator, CPR, PRR, IsPRRMoreThanOREqualsToCPR, "NA");
         KIERulesService.getRulesForPRRCPR(sparPrrCpr);
         return sparPrrCpr;
     }

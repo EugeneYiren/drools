@@ -4,7 +4,7 @@ import com.droolsUIEngine.droolsUIEngine.Models.SPAR_PRR_CPR
 
 rule "SPAR_PRR_CPR_1"
 when
-    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Exclude Mutual Funds", HYBFIndicator == "ALL", ExecutionType == "ALL", VCStatus == "B", CPR == "GT2", PRR == "GT2", isPRRMoreThanOREqualsToCPR == "GT2" )  
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Exclude Mutual Funds", HYBFIndicator == "ALL", ExecutionType == "ALL", VCStatus == "B", HedgingIndicator == "A", CPR == "GT2", PRR == "GT2", IsPRRMoreThanOREqualsToCPR == "GT2" )  
 then
 $a.setStatus("Hard Block");
 
