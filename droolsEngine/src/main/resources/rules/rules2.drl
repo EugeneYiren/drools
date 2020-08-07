@@ -1,0 +1,13 @@
+package rules 
+
+import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Objective
+
+rule "SPAR_Investment_Objective_1"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Exclude Mutual Funds", ExecutionType == "ALL", VCStatus == "B", ClientInvObjective == "A", ProductInvObjective == "GT2" )  
+then
+$a.setStatus("Hard Block");
+
+end
+
+

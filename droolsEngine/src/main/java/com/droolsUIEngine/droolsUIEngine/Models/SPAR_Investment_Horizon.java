@@ -9,12 +9,11 @@ public class SPAR_Investment_Horizon {
     public String InvestmentHorizon;
     public String ProductTenor;
     public String Tenor;
-    public String vc;
+    public String VC;
     public String FundMasterList;
-    public boolean pass;
-    public boolean test;
+    public String Status;
 
-    public void setValues(String HKRegulated, String Direction, String ProductType, String ProductSubType, String ExecutionType, String InvestmentHorizon, String ProductTenor, String Tenor, String vc, String FundMasterList){
+    public void setValues(String HKRegulated, String Direction, String ProductType, String ProductSubType, String ExecutionType, String InvestmentHorizon, String ProductTenor, String Tenor, String VC, String FundMasterList, String Status){
         this.HKRegulated = HKRegulated;
         this.Direction = Direction;
         this.ProductType = ProductType;
@@ -23,15 +22,13 @@ public class SPAR_Investment_Horizon {
         this.InvestmentHorizon = InvestmentHorizon;
         this.ProductTenor = ProductTenor;
         this.Tenor = Tenor;
-        this.vc = vc;
+        this.VC = VC;
         this.FundMasterList = FundMasterList;
+        this.Status = Status;
     }
 
-    public void setStatus(boolean pass){
-        this.pass = pass;
+    public void setStatus(String status){
+        this.Status = status;
     }
 
-    public void setTest(boolean test){
-        this.test = test;
-    }
 }

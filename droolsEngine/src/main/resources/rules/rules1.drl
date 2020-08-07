@@ -4,9 +4,9 @@ import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon
 
 rule "SPAR_Investment_Horizon_1"
 when
-    $a : SPAR_Investment_Horizon( HKRegulated == "N", Direction == "Buy", ProductType == "12", ProductSubType == "12", ExecutionType == "12", InvestmentHorizon == "12", ProductTenor == "12", Tenor == "12", vc == "12", FundMasterList == "12" )  
+    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Exclude Mutual Funds", ExecutionType == "ALL", InvestmentHorizon == "B", ProductTenor == "A", Tenor == "GT2", VC == "Y", FundMasterList == "Y" )  
 then
-$a.setTest(true);
+$a.setStatus("Hard Block");
 
 end
 

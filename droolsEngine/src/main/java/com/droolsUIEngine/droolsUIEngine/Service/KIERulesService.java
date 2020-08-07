@@ -12,6 +12,7 @@ import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import com.droolsUIEngine.droolsUIEngine.Models.*;
 
@@ -38,7 +39,7 @@ public class KIERulesService {
         }
     }
 
-    public KieContainer build(KieServices kieServices, SPAR_Investment_Horizon s) {
+    public KieContainer build(KieServices kieServices, SPAR_Investment_Horizon invHor, SPAR_Investment_Objective invObj) {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
         ReleaseId rid = kieServices.newReleaseId("com.example.rulesengine",
                 "model-test", "1.0-SNAPSHOT");
@@ -47,7 +48,7 @@ public class KIERulesService {
         kieFileSystem.write("rules/rules.drl",
                 getResource(kieServices, "rules/rules.drl"));
 
-        addRule(kieFileSystem, s);
+        addRule(kieFileSystem, invHor, invObj);
 
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
@@ -59,7 +60,7 @@ public class KIERulesService {
         return kieServices.newKieContainer(rid);
     }
 
-    private void addRule(KieFileSystem kieFileSystem, SPAR_Investment_Horizon s) {
+    private void addRule(KieFileSystem kieFileSystem, @Nullable SPAR_Investment_Horizon invHor, @Nullable SPAR_Investment_Objective invObj) {
         /*PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
 
         pkgDescrBuilder
@@ -75,24 +76,12 @@ public class KIERulesService {
                 .rhs("$a.setTest( true );")
                 .end();
         */
+        PackageDescrBuilder pkgDescrBuilder = null;
 
-        PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
-        pkgDescrBuilder.name("rules").getDescr();
-        pkgDescrBuilder.newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon");
-        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_Investment_Horizon_1");
-        CEDescrBuilder<RuleDescrBuilder, AndDescr> lhsBuilder = ruleBuilder.lhs();
-        PatternDescrBuilder<CEDescrBuilder<RuleDescrBuilder, AndDescr>> patternBuilder = lhsBuilder.pattern("SPAR_Investment_Horizon").id("$a", false);
-        patternBuilder.constraint("HKRegulated == " + "\"" + s.HKRegulated + "\"").end();
-        patternBuilder.constraint("Direction == " + "\"" + s.Direction + "\"").end();
-        patternBuilder.constraint("ProductType == " + "\"" + s.ProductType + "\"").end();
-        patternBuilder.constraint("ProductSubType == " + "\"" + s.ProductSubType + "\"").end();
-        patternBuilder.constraint("ExecutionType == " + "\"" + s.ExecutionType + "\"").end();
-        patternBuilder.constraint("InvestmentHorizon == " + "\"" + s.InvestmentHorizon + "\"").end();
-        patternBuilder.constraint("ProductTenor == " + "\"" + s.ProductTenor + "\"").end();
-        patternBuilder.constraint("Tenor == " + "\"" + s.Tenor + "\"").end();
-        patternBuilder.constraint("vc == " + "\"" + s.vc + "\"").end();
-        patternBuilder.constraint("FundMasterList == " + "\"" + s.FundMasterList + "\"").end();
-        ruleBuilder.rhs("$a.setTest(true);").end();
+        if (invHor != null)
+            pkgDescrBuilder = PackageBuilder.addRule(invHor);
+        else if(invObj != null)
+            pkgDescrBuilder = PackageBuilder.addRule(invObj);
 
         int counter = 0;
         File dir = new File("src/main/resources/rules/");
@@ -158,5 +147,37 @@ public class KIERulesService {
         return inv_horizon;
     }
 
+    public SPAR_Investment_Objective getRulesForInvestmentObjective(SPAR_Investment_Objective invObjective) {
+        //get the stateful session
+        KieServices kieServices = KieServices.Factory.get();
+        KieFileSystem kfs = kieServices.newKieFileSystem();
+        File dir = new File("src/main/resources/rules/");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                try {
+                    FileInputStream fis = new FileInputStream("src/main/resources/rules/" + child.getName());
+                    kfs.write("src/main/resources/rules/"+ child.getName(),
+                            kieServices.getResources().newInputStreamResource(fis));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        KieBuilder kieBuilder = kieServices.newKieBuilder( kfs ).buildAll();
+        Results results = kieBuilder.getResults();
+        if( results.hasMessages( Message.Level.ERROR ) ){
+            System.out.println( results.getMessages() );
+            throw new IllegalStateException( "### errors ###" );
+        }
+        KieContainer kieContainer =
+                kieServices.newKieContainer( kieServices.getRepository().getDefaultReleaseId() );
+        KieBase kieBase = kieContainer.getKieBase();
+        KieSession kieSession = kieContainer.newKieSession();
 
+        kieSession.insert(invObjective);
+        kieSession.fireAllRules();
+        kieSession.dispose();
+        return invObjective;
+    }
 }

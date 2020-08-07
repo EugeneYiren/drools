@@ -6,6 +6,6 @@ rule "SPAR_Investment_Horizon"
 	when
 		productObject: SPAR_Investment_Horizon(HKRegulated=="Y")
 	then
-		productObject.setStatus(true);
+		productObject.setStatus("Pass");
 	end
 
