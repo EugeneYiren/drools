@@ -7,12 +7,12 @@ import org.drools.compiler.lang.api.*;
 import org.drools.compiler.lang.descr.AndDescr;
 
 public class PackageBuilder {
-
+    public static int counter = 2;
     public static PackageDescrBuilder addRule(SPAR_Investment_Horizon s){
         PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
         pkgDescrBuilder.name("rules").getDescr();
         pkgDescrBuilder.newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon");
-        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_Investment_Horizon_1");
+        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_Investment_Horizon_"+counter);
         CEDescrBuilder<RuleDescrBuilder, AndDescr> lhsBuilder = ruleBuilder.lhs();
         PatternDescrBuilder<CEDescrBuilder<RuleDescrBuilder, AndDescr>> patternBuilder = lhsBuilder.pattern("SPAR_Investment_Horizon").id("$a", false);
         patternBuilder.constraint("HKRegulated == " + "\"" + s.HKRegulated + "\"").end();
@@ -26,6 +26,7 @@ public class PackageBuilder {
         patternBuilder.constraint("VC == " + "\"" + s.VC + "\"").end();
         patternBuilder.constraint("FundMasterList == " + "\"" + s.FundMasterList + "\"").end();
         ruleBuilder.rhs("$a.setStatus(\"" + s.Status + "\");").end();
+        counter++;
         return pkgDescrBuilder;
     }
 
@@ -33,7 +34,7 @@ public class PackageBuilder {
         PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
         pkgDescrBuilder.name("rules").getDescr();
         pkgDescrBuilder.newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Objective");
-        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_Investment_Objective_1");
+        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_Investment_Objective_"+counter);
         CEDescrBuilder<RuleDescrBuilder, AndDescr> lhsBuilder = ruleBuilder.lhs();
         PatternDescrBuilder<CEDescrBuilder<RuleDescrBuilder, AndDescr>> patternBuilder = lhsBuilder.pattern("SPAR_Investment_Objective").id("$a", false);
         patternBuilder.constraint("HKRegulated == " + "\"" + s.HKRegulated + "\"").end();
@@ -45,6 +46,7 @@ public class PackageBuilder {
         patternBuilder.constraint("ClientInvObjective == " + "\"" + s.ClientInvObjective + "\"").end();
         patternBuilder.constraint("ProductInvObjective == " + "\"" + s.ProductInvObjective + "\"").end();
         ruleBuilder.rhs("$a.setStatus(\"" + s.Status + "\");").end();
+        counter++;
         return pkgDescrBuilder;
     }
 
@@ -53,7 +55,7 @@ public class PackageBuilder {
         PackageDescrBuilder pkgDescrBuilder = DescrFactory.newPackage();
         pkgDescrBuilder.name("rules").getDescr();
         pkgDescrBuilder.newImport().target("com.droolsUIEngine.droolsUIEngine.Models.SPAR_PRR_CPR");
-        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_PRR_CPR_1");
+        RuleDescrBuilder ruleBuilder = pkgDescrBuilder.newRule().name("SPAR_PRR_CPR_"+counter);
         CEDescrBuilder<RuleDescrBuilder, AndDescr> lhsBuilder = ruleBuilder.lhs();
         PatternDescrBuilder<CEDescrBuilder<RuleDescrBuilder, AndDescr>> patternBuilder = lhsBuilder.pattern("SPAR_PRR_CPR").id("$a", false);
         patternBuilder.constraint("HKRegulated == " + "\"" + s.HKRegulated + "\"").end();
@@ -68,6 +70,7 @@ public class PackageBuilder {
         patternBuilder.constraint("PRR == " + "\"" + s.PRR + "\"").end();
         patternBuilder.constraint("IsPRRMoreThanOREqualsToCPR == " + "\"" + s.IsPRRMoreThanOREqualsToCPR + "\"").end();
         ruleBuilder.rhs("$a.setStatus(\"" + s.Status + "\");").end();
+        counter++;
         return pkgDescrBuilder;
     }
 }

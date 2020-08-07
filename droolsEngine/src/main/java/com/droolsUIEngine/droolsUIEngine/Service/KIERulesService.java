@@ -115,7 +115,7 @@ public class KIERulesService {
         }
     }
 
-    public SPAR_Investment_Horizon getRulesForInvestmentHorizon(SPAR_Investment_Horizon inv_horizon) {
+    public KieServices getKieServices(){
         //get the stateful session
         KieServices kieServices = KieServices.Factory.get();
         KieFileSystem kfs = kieServices.newKieFileSystem();
@@ -138,6 +138,11 @@ public class KIERulesService {
             System.out.println( results.getMessages() );
             throw new IllegalStateException( "### errors ###" );
         }
+        return kieServices;
+    }
+
+    public SPAR_Investment_Horizon getRulesForInvestmentHorizon(SPAR_Investment_Horizon inv_horizon) {
+        KieServices kieServices = getKieServices();
         KieContainer kieContainer =
                 kieServices.newKieContainer( kieServices.getRepository().getDefaultReleaseId() );
         KieBase kieBase = kieContainer.getKieBase();
@@ -151,27 +156,7 @@ public class KIERulesService {
 
     public SPAR_Investment_Objective getRulesForInvestmentObjective(SPAR_Investment_Objective invObjective) {
         //get the stateful session
-        KieServices kieServices = KieServices.Factory.get();
-        KieFileSystem kfs = kieServices.newKieFileSystem();
-        File dir = new File("src/main/resources/rules/");
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                try {
-                    FileInputStream fis = new FileInputStream("src/main/resources/rules/" + child.getName());
-                    kfs.write("src/main/resources/rules/"+ child.getName(),
-                            kieServices.getResources().newInputStreamResource(fis));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        KieBuilder kieBuilder = kieServices.newKieBuilder( kfs ).buildAll();
-        Results results = kieBuilder.getResults();
-        if( results.hasMessages( Message.Level.ERROR ) ){
-            System.out.println( results.getMessages() );
-            throw new IllegalStateException( "### errors ###" );
-        }
+        KieServices kieServices = getKieServices();
         KieContainer kieContainer =
                 kieServices.newKieContainer( kieServices.getRepository().getDefaultReleaseId() );
         KieBase kieBase = kieContainer.getKieBase();
@@ -184,27 +169,7 @@ public class KIERulesService {
     }
 
     public SPAR_PRR_CPR getRulesForPRRCPR(SPAR_PRR_CPR sparPrrCpr) {
-        KieServices kieServices = KieServices.Factory.get();
-        KieFileSystem kfs = kieServices.newKieFileSystem();
-        File dir = new File("src/main/resources/rules/");
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                try {
-                    FileInputStream fis = new FileInputStream("src/main/resources/rules/" + child.getName());
-                    kfs.write("src/main/resources/rules/"+ child.getName(),
-                            kieServices.getResources().newInputStreamResource(fis));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        KieBuilder kieBuilder = kieServices.newKieBuilder( kfs ).buildAll();
-        Results results = kieBuilder.getResults();
-        if( results.hasMessages( Message.Level.ERROR ) ){
-            System.out.println( results.getMessages() );
-            throw new IllegalStateException( "### errors ###" );
-        }
+        KieServices kieServices = getKieServices();
         KieContainer kieContainer =
                 kieServices.newKieContainer( kieServices.getRepository().getDefaultReleaseId() );
         KieBase kieBase = kieContainer.getKieBase();
