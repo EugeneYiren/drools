@@ -55,7 +55,7 @@ export const INVESTMENT_HORIZON = {
     'LTEQ10',
     'NA',
   ],
-  VCStatus: ['Y', 'N', 'ALL', 'NA'],
+  VC: ['Y', 'N', 'ALL', 'NA'],
   FundMasterList: ['Y', 'N', 'ALL', 'NA'],
   Status: ['Hard Block', 'Soft Block', 'Pass'],
 }
@@ -69,7 +69,7 @@ export const INVESTMENT_HORIZON_MAPPING = {
   InvestmentHorizon: 'Investment Horizon',
   ProductTenor: 'Product Tenor',
   Tenor: 'Tenor',
-  VCStatus: 'VC Status',
+  VC: 'VC Status',
   FundMasterList: 'Fund Master List',
   Status: 'Status',
 }

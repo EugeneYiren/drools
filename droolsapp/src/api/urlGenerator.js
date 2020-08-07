@@ -4,4 +4,4 @@ export const generateUrlPostInvestmentHorizonRule = () =>
 export const generateUrlPostInvestmentObjectiveRule = () =>
   'v0/rule/new-rule/SPAR-Investment-Objective'
 
-export const generateUrlPostPrrCprRule = () => '0/rule/new-rule/SPAR-PRR-CPR'
+export const generateUrlPostPrrCprRule = () => 'v0/rule/new-rule/SPAR-PRR-CPR'
