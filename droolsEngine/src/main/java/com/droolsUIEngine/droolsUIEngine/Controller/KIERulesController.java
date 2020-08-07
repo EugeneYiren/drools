@@ -34,7 +34,7 @@ public class KIERulesController {
                                                 String ExecutionType, String VCStatus, String HedgingIndicator, String CPR, String PRR, String isPRRMoreThanOREqualsToCPR) {
 
         SPAR_PRR_CPR sparPrrCpr = new SPAR_PRR_CPR();
-        sparPrrCpr.setValues(HKRegulated, Direction, ProductType, ProductSubType, HYBFIndicator, ExecutionType, VCStatus, HedgingIndicator, CPR, PRR,  isPRRMoreThanOREqualsToCPR, "");
+        sparPrrCpr.setValues(HKRegulated, Direction, ProductType, ProductSubType, HYBFIndicator, ExecutionType, VCStatus, HedgingIndicator, CPR, PRR,  isPRRMoreThanOREqualsToCPR, "NA");
         KIERulesService.getRulesForPRRCPR(sparPrrCpr);
         return sparPrrCpr;
     }
@@ -53,7 +53,7 @@ public class KIERulesController {
                                                            String VCStatus, String ClientInvObjective, String ProductInvObjective) {
 
         SPAR_Investment_Objective spar_investment_objective = new SPAR_Investment_Objective();
-        spar_investment_objective.setValues(HKRegulated, Direction, ProductType, ProductSubType, ExecutionType, VCStatus, ClientInvObjective, ProductInvObjective, "");
+        spar_investment_objective.setValues(HKRegulated, Direction, ProductType, ProductSubType, ExecutionType, VCStatus, ClientInvObjective, ProductInvObjective, "NA");
         KIERulesService.getRulesForInvestmentObjective(spar_investment_objective);
         return spar_investment_objective;
     }
@@ -72,7 +72,7 @@ public class KIERulesController {
                                 String InvestmentHorizon, String ProductTenor, String Tenor, String VC, String FundMasterList) {
 
         SPAR_Investment_Horizon spar_investment_horizon = new SPAR_Investment_Horizon();
-        spar_investment_horizon.setValues(HKRegulated, Direction, ProductType, ProductSubType, ExecutionType, InvestmentHorizon, ProductTenor, Tenor, VC, FundMasterList, "");
+        spar_investment_horizon.setValues(HKRegulated, Direction, ProductType, ProductSubType, ExecutionType, InvestmentHorizon, ProductTenor, Tenor, VC, FundMasterList, "NA");
         KIERulesService.getRulesForInvestmentHorizon(spar_investment_horizon);
         return spar_investment_horizon;
     }
