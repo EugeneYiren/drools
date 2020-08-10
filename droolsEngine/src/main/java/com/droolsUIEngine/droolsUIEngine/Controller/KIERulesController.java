@@ -33,7 +33,15 @@ public class KIERulesController {
     public SPAR_PRR_CPR SPARPRRCPR(@RequestParam(required = true) String HKRegulated, String Direction, String ProductType, String ProductSubType, String HYBFIndicator,
                                                 String ExecutionType, String VCStatus, String HedgingIndicator, String CPR, String PRR, String IsPRRMoreThanOREqualsToCPR) {
         SPAR_PRR_CPR sparPrrCpr = new SPAR_PRR_CPR();
-        sparPrrCpr.setValues(HKRegulated, Direction, ProductType, ProductSubType, HYBFIndicator, ExecutionType, VCStatus, HedgingIndicator, CPR, PRR, IsPRRMoreThanOREqualsToCPR, "NA");
+        int cprConverted = -1;
+        int prrConverted = -1;
+
+        if(!(CPR == null || CPR.isEmpty()))
+            cprConverted = Integer.parseInt(CPR);
+        if(!(PRR == null || PRR.isEmpty()))
+            prrConverted = Integer.parseInt(PRR);
+
+        sparPrrCpr.setValues(HKRegulated, Direction, ProductType, ProductSubType, HYBFIndicator, ExecutionType, VCStatus, HedgingIndicator, cprConverted, prrConverted, IsPRRMoreThanOREqualsToCPR, "NA");
         KIERulesService.getRulesForPRRCPR(sparPrrCpr);
         return sparPrrCpr;
     }

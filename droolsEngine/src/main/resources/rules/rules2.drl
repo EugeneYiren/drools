@@ -1,13 +1,100 @@
 package rules 
 
-import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Objective
+import com.droolsUIEngine.droolsUIEngine.Models.SPAR_PRR_CPR
 
-rule "SPAR_Investment_Objective_1"
+rule "SPAR_PRR_CPR_1"
 when
-    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Exclude Mutual Funds", ExecutionType == "ALL", VCStatus == "B", ClientInvObjective == "A", ProductInvObjective == "GT2" )  
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType == "Exclude COCO Bonds", HYBFIndicator == "NA", ExecutionType != "", VCStatus == "Yes", HedgingIndicator == "NA", CPR == 1, PRR == 1, IsPRRMoreThanOREqualsToCPR == "NA" )
 then
-$a.setStatus("Hard Block");
+$a.setStatus("pass");
+end
+
+rule "SPAR_PRR_CPR_2"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType == "Exclude EQD KODA", HYBFIndicator == "NA", ExecutionType != "", VCStatus == "No", HedgingIndicator == "NA", CPR >0, PRR >0, IsPRRMoreThanOREqualsToCPR == "Yes" )
+then
+$a.setStatus("pass");
+end
+
+rule "SPAR_PRR_CPR_3"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType == "Exclude COCO Bonds", HYBFIndicator == "NA", ExecutionType == "Advisory", VCStatus == "No", HedgingIndicator == "NA", CPR == 1, PRR >= 2, IsPRRMoreThanOREqualsToCPR == "No" )
+then
+$a.setStatus("soft-block: not allowed");
+end
+
+rule "SPAR_PRR_CPR_4"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType == "Exclude EQD KODA", HYBFIndicator == "NA", ExecutionType == "Advisory", VCStatus == "No", HedgingIndicator == "NA", CPR == 1, PRR >= 2, IsPRRMoreThanOREqualsToCPR == "No" )
+then
+$a.setStatus("soft-block: not allowed");
 
 end
+
+rule "SPAR_PRR_CPR_5"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType == "Exclude COCO Bonds", HYBFIndicator == "NA", ExecutionType == "Execution Only", VCStatus == "No", HedgingIndicator == "NA", CPR == 2, PRR == 3, IsPRRMoreThanOREqualsToCPR == "No" )
+then
+$a.setStatus("soft-block: mismatch");
+
+end
+
+rule "SPAR_PRR_CPR_6"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "No", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType != "", HYBFIndicator == "NA", ExecutionType == "Advisory", VCStatus == "No", HedgingIndicator == "NA", CPR == 1, PRR == 2, IsPRRMoreThanOREqualsToCPR == "No" )
+then
+$a.setStatus("soft block: mismatch");
+
+end
+
+rule "SPAR_PRR_CPR_7"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "No", Direction == "Buy", ProductType == "Bonds", ProductSubType != "", HYBFIndicator == "NA", ExecutionType == "Advisory", VCStatus == "No", HedgingIndicator == "NA", CPR > 0, PRR < 0, IsPRRMoreThanOREqualsToCPR == "Invalid" )
+then
+$a.setStatus("hard block: Missing PRR");
+
+end
+
+rule "SPAR_PRR_CPR_8"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "No", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType != "", HYBFIndicator == "NA", ExecutionType == "Advisory", VCStatus == "No", HedgingIndicator == "NA", CPR > 0, PRR < 0, IsPRRMoreThanOREqualsToCPR == "Invalid" )
+then
+$a.setStatus("hard block: Missing PRR");
+
+end
+
+rule "SPAR_PRR_CPR_9"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "No", Direction == "Buy", ProductType == "Bonds", ProductSubType != "", HYBFIndicator == "NA", ExecutionType != "", VCStatus == "Yes", HedgingIndicator == "NA", CPR >= 3, PRR < 0, IsPRRMoreThanOREqualsToCPR == "NA" )
+then
+$a.setStatus("hard block: Invalid CPR for VC Client");
+
+end
+
+rule "SPAR_PRR_CPR_10"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "No", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType != "", HYBFIndicator == "NA", ExecutionType != "", VCStatus == "Yes", HedgingIndicator == "NA", CPR >= 3, PRR < 0, IsPRRMoreThanOREqualsToCPR == "NA" )
+then
+$a.setStatus("hard block: Invalid CPR for VC Client");
+
+end
+
+rule "SPAR_PRR_CPR_11"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType != "", HYBFIndicator == "NA", ExecutionType != "", VCStatus == "NA", HedgingIndicator == "NA", CPR < 0, PRR > 0, IsPRRMoreThanOREqualsToCPR == "Invalid" )
+then
+$a.setStatus("hard block: Missing CPR");
+
+end
+
+rule "SPAR_PRR_CPR_12"
+when
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType != "", HYBFIndicator == "NA", ExecutionType != "", VCStatus == "NA", HedgingIndicator == "NA", CPR < 0, PRR > 0, IsPRRMoreThanOREqualsToCPR == "Invalid" )
+then
+$a.setStatus("hard block: Missing CPR");
+
+end
+
+
 
 

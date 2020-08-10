@@ -1,13 +1,67 @@
 package rules 
 
-import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Horizon
+import com.droolsUIEngine.droolsUIEngine.Models.SPAR_Investment_Objective
 
-rule "SPAR_Investment_Horizon_1"
+rule "SPAR_Investment_Objective_1"
 when
-    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Exclude Mutual Funds", ExecutionType == "ALL", InvestmentHorizon == "B", ProductTenor == "A", Tenor == "GT2", VC == "Y", FundMasterList == "Y" )  
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType != "", ExecutionType != "", VCStatus != "", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Capital Preservation" )
 then
-$a.setStatus("Hard Block");
+$a.setStatus("pass");
 
 end
 
+rule "SPAR_Investment_Objective_2"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Swaps", ProductSubType != "", ExecutionType != "", VCStatus != "", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Capital Preservation" )
+then
+$a.setStatus("pass");
 
+end
+
+rule "SPAR_Investment_Objective_3"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "NA", ExecutionType != "", VCStatus == "Yes", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
+then
+$a.setStatus("soft block: Not allowed");
+
+end
+
+rule "SPAR_Investment_Objective_4"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Swaps", ProductSubType != "", ExecutionType != "", VCStatus == "Yes", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
+then
+$a.setStatus("soft block: Not allowed");
+
+end
+
+rule "SPAR_Investment_Objective_5"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "NA", ExecutionType != "", VCStatus == "No", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
+then
+$a.setStatus("soft block: Mismatch");
+
+end
+
+rule "SPAR_Investment_Objective_6"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Swaps", ProductSubType != "", ExecutionType != "", VCStatus == "No", ClientInvObjective != ProductInvObjective )
+then
+$a.setStatus("soft block: Mismatch");
+
+end
+
+rule "SPAR_Investment_Objective_7"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType != "", ProductSubType != "", ExecutionType != "", VCStatus != "", ClientInvObjective != "", ProductInvObjective == "" )
+then
+$a.setStatus("hard block: Missing Prod Objective");
+
+end
+
+rule "SPAR_Investment_Objective_8"
+when
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType != "", ProductSubType != "", ExecutionType != "", VCStatus != "", ClientInvObjective == "", ProductInvObjective != "" )
+then
+$a.setStatus("hard block: Missing Client Objective");
+
+end

@@ -9,13 +9,13 @@ public class SPAR_PRR_CPR {
     public String ExecutionType;
     public String VCStatus;
     public String HedgingIndicator;
-    public String CPR;
-    public String PRR;
+    public int CPR;
+    public int PRR;
     public String IsPRRMoreThanOREqualsToCPR;
     public String Status;
 
     public void setValues(String HKRegulated, String Direction, String ProductType, String ProductSubType, String HYBFIndicator, String ExecutionType,
-                          String VCStatus, String HedgingIndicator, String CPR, String PRR, String IsPRRMoreThanOREqualsToCPR, String Status){
+                          String VCStatus, String HedgingIndicator, int CPR, int PRR, String IsPRRMoreThanOREqualsToCPR, String Status){
         this.HKRegulated = HKRegulated;
         this.Direction = Direction;
         this.ProductType = ProductType;
