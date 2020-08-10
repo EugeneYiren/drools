@@ -45,6 +45,9 @@ class RuleDetails extends Component {
           }}
           onChange={this.handleChange}
         >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {ruleObject[entries].map((item) => (
             <MenuItem key={item} value={item}>
               {item}

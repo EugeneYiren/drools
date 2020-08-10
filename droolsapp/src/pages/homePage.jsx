@@ -9,10 +9,15 @@ import {
   postInvestmentHorizonRule as postInvestmentHorizonRuleAction,
   postInvestmentObjectiveRule as postInvestmentObjectiveRuleAction,
   postPrrCprRule as postPrrCprRuleAction,
+  getInvestmentHorizonRule as getInvestmentHorizonRuleAction,
+  getInvestmentObjectiveRule as getInvestmentObjectiveRuleAction,
+  getPrrCprRule as getPrrCprRuleAction,
 } from '../store/actions/drools'
 import CreateNewRule from '../components/createNewRule'
 import SubmitNewRule from '../components/submitNewRule'
 import TopAppBar from '../components/topAppBar'
+import EugeneOMS from '../components/eugeneOMS'
+import RuleCheck from '../components/ruleCheck'
 
 const useStyles = (theme) => ({
   root: {
@@ -56,16 +61,18 @@ class HomePage extends Component {
     const { component } = this.state
     if (component === 'Create New Rule')
       return (
-        <CreateNewRule onSubmitButtonClick={this.handleSubmitButtonClick} />
+        <CreateNewRule onSubmitButtonClick={this.handleSubmitNewRuleClick} />
       )
-    if (component === 'OMS') return null
+    if (component === 'OMS')
+      return <EugeneOMS onNextButtonClick={this.handleNextButtonClick} />
     if (component === 'Submit New Rule')
       return <SubmitNewRule onBackButtonClick={this.handleCreateNewRuleClick} />
+    if (component === 'Rule Check') return <RuleCheck />
 
     return null
   }
 
-  handleSubmitButtonClick = (response, ruleName) => {
+  handleSubmitNewRuleClick = (response, ruleName) => {
     const {
       postInvestmentHorizonRule,
       postInvestmentObjectiveRule,
@@ -82,6 +89,72 @@ class HomePage extends Component {
     } else if (ruleName === 'PRR CPR') {
       postPrrCprRule(response)
     }
+  }
+
+  handleNextButtonClick = (
+    HKRegulated,
+    Direction,
+    ProductType,
+    ProductSubType,
+    ExecutionType,
+    VCStatus,
+    InvestmentHorizon,
+    ProductTenor,
+    Tenor,
+    FundMasterList,
+    ClientInvObjective,
+    ProductInvObjective,
+    HYBFIndicator,
+    HedgingIndicator,
+    CPR,
+    PRR,
+    IsPRRMoreThanOREqualsToCPR
+  ) => {
+    const {
+      getInvestmentHorizonRule,
+      getInvestmentObjectiveRule,
+      getPrrCprRule,
+    } = this.props
+
+    getInvestmentHorizonRule(
+      HKRegulated,
+      Direction,
+      ProductType,
+      ProductSubType,
+      ExecutionType,
+      InvestmentHorizon,
+      ProductTenor,
+      Tenor,
+      VCStatus,
+      FundMasterList
+    )
+    getInvestmentObjectiveRule(
+      HKRegulated,
+      Direction,
+      ProductType,
+      ProductSubType,
+      ExecutionType,
+      VCStatus,
+      ClientInvObjective,
+      ProductInvObjective
+    )
+    getPrrCprRule(
+      HKRegulated,
+      Direction,
+      ProductType,
+      ProductSubType,
+      HYBFIndicator,
+      ExecutionType,
+      VCStatus,
+      HedgingIndicator,
+      CPR,
+      PRR,
+      IsPRRMoreThanOREqualsToCPR
+    )
+
+    this.setState({
+      component: 'Rule Check',
+    })
   }
 
   render() {
@@ -108,6 +181,9 @@ HomePage.propTypes = {
   postInvestmentHorizonRule: PropTypes.func.isRequired,
   postInvestmentObjectiveRule: PropTypes.func.isRequired,
   postPrrCprRule: PropTypes.func.isRequired,
+  getInvestmentHorizonRule: PropTypes.func.isRequired,
+  getInvestmentObjectiveRule: PropTypes.func.isRequired,
+  getPrrCprRule: PropTypes.func.isRequired,
 }
 
 HomePage.defaultProps = {}
@@ -118,6 +194,9 @@ const mapDispatchToProps = {
   postInvestmentHorizonRule: postInvestmentHorizonRuleAction,
   postInvestmentObjectiveRule: postInvestmentObjectiveRuleAction,
   postPrrCprRule: postPrrCprRuleAction,
+  getInvestmentHorizonRule: getInvestmentHorizonRuleAction,
+  getInvestmentObjectiveRule: getInvestmentObjectiveRuleAction,
+  getPrrCprRule: getPrrCprRuleAction,
 }
 
 export default withRouter(

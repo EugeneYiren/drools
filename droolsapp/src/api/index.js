@@ -5,6 +5,9 @@ import {
   generateUrlPostInvestmentHorizonRule,
   generateUrlPostInvestmentObjectiveRule,
   generateUrlPostPrrCprRule,
+  generateUrlGetInvestmentHorizonRule,
+  generateUrlGetInvestmentObjectiveRule,
+  generateUrlGetPrrCprRule,
 } from './urlGenerator'
 
 let headers = {}
@@ -25,14 +28,14 @@ const setRequestHeader = (requestId) => {
   axiosApi.defaults.headers.requestId = requestId
 }
 
-// eslint-disable-next-line import/prefer-default-export
+// POST CALLS
 export const postInvestmentHorizonRule = (newRuleResponse) => {
-  setRequestHeader(`POST_NEW_RULE_${uuidv1()}`)
+  setRequestHeader(`POST_INVESTMENT_HORIZON_RULE_${uuidv1()}`)
   return axiosApi.post(generateUrlPostInvestmentHorizonRule(), newRuleResponse)
 }
 
 export const postInvestmentObjectiveRule = (newRuleResponse) => {
-  setRequestHeader(`POST_NEW_RULE_${uuidv1()}`)
+  setRequestHeader(`POST_INVESTMENT_OBJECTIVE_RULE_${uuidv1()}`)
   return axiosApi.post(
     generateUrlPostInvestmentObjectiveRule(),
     newRuleResponse
@@ -40,6 +43,92 @@ export const postInvestmentObjectiveRule = (newRuleResponse) => {
 }
 
 export const postPrrCprRule = (newRuleResponse) => {
-  setRequestHeader(`POST_NEW_RULE_${uuidv1()}`)
+  setRequestHeader(`POST_PRR_CPR_RULE_${uuidv1()}`)
   return axiosApi.post(generateUrlPostPrrCprRule(), newRuleResponse)
+}
+
+// GET CALLS
+export const getInvestmentHorizonRule = (
+  HKRegulated,
+  Direction,
+  ProductType,
+  ProductSubType,
+  ExecutionType,
+  InvestmentHorizon,
+  ProductTenor,
+  Tenor,
+  VC,
+  FundMasterList
+) => {
+  setRequestHeader(`GET_INVESTMENT_HORIZON_RULE_${uuidv1()}`)
+  return axiosApi.get(
+    generateUrlGetInvestmentHorizonRule(
+      HKRegulated,
+      Direction,
+      ProductType,
+      ProductSubType,
+      ExecutionType,
+      InvestmentHorizon,
+      ProductTenor,
+      Tenor,
+      VC,
+      FundMasterList
+    )
+  )
+}
+
+export const getInvestmentObjectiveRule = (
+  HKRegulated,
+  Direction,
+  ProductType,
+  ProductSubType,
+  ExecutionType,
+  VCStatus,
+  ClientInvObjective,
+  ProductInvObjective
+) => {
+  setRequestHeader(`GET_INVESTMENT_OBJECTIVE_RULE_${uuidv1()}`)
+  return axiosApi.get(
+    generateUrlGetInvestmentObjectiveRule(
+      HKRegulated,
+      Direction,
+      ProductType,
+      ProductSubType,
+      ExecutionType,
+      VCStatus,
+      ClientInvObjective,
+      ProductInvObjective
+    )
+  )
+}
+
+export const getPrrCprRule = (
+  HKRegulated,
+  Direction,
+  ProductType,
+  ProductSubType,
+  HYBFIndicator,
+  ExecutionType,
+  VCStatus,
+  HedgingIndicator,
+  CPR,
+  PRR,
+  IsPRRMoreThanOREqualsToCPR
+) => {
+  setRequestHeader(`GET_PRR_CPR_RULE_${uuidv1()}`)
+  return axiosApi.get(
+    generateUrlGetPrrCprRule(
+      HKRegulated,
+      Direction,
+      ProductType,
+      ProductSubType,
+      HYBFIndicator,
+      ExecutionType,
+      VCStatus,
+      HedgingIndicator,
+      CPR,
+      PRR,
+      IsPRRMoreThanOREqualsToCPR
+    )
+  )
 }
