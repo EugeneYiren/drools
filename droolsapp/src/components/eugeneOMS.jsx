@@ -63,13 +63,13 @@ class EugeneOMS extends Component {
       Direction: 'Buy',
       ProductType: 'Funds',
       ProductSubType: 'Exclude Mutual Funds',
-      ExecutionType: 'ALL',
-      VCStatus: 'Y',
+      ExecutionType: 'Execution Only',
+      VCStatus: 'N',
 
       // investment horizon
-      InvestmentHorizon: 'B',
-      ProductTenor: 'A',
-      Tenor: 'GT2',
+      InvestmentHorizon: 'D',
+      ProductTenor: 'D',
+      Tenor: 'NA',
       FundMasterList: 'Y',
 
       // investment objective
@@ -77,11 +77,11 @@ class EugeneOMS extends Component {
       ProductInvObjective: 'Capital Preservation',
 
       // prr cpr
-      HYBFIndicator: 'ALL',
-      HedgingIndicator: 'Y',
-      CPR: '2',
+      HYBFIndicator: 'Y',
+      HedgingIndicator: 'NA',
+      CPR: '4',
       PRR: '4',
-      IsPRRMoreThanOREqualsToCPR: 'Y',
+      IsPRRMoreThanOREqualsToCPR: 'NA',
     }
   }
 

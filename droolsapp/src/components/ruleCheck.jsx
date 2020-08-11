@@ -9,11 +9,15 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import CheckIcon from '@material-ui/icons/Check'
 import { withStyles } from '@material-ui/core/styles'
 
 const useStyles = () => ({
   table: {
     maxWidth: 720,
+  },
+  checkIcon: {
+    color: 'green',
   },
 })
 
@@ -24,6 +28,8 @@ class RuleCheck extends Component {
   }
 
   renderRuleStatus = (isLoading, response, error) => {
+    const { classes } = this.props
+
     if (isLoading) {
       return <CircularProgress />
     }
@@ -31,6 +37,17 @@ class RuleCheck extends Component {
       return 'Network Error'
     }
     if (Object.keys(response).length !== 0) {
+      if (response.Status === 'pass') {
+        return (
+          <>
+            <CheckIcon className={classes.checkIcon} />
+            {response.Status}
+          </>
+        )
+      }
+      if (response.Status === 'NA') {
+        return 'Rule not configured'
+      }
       return response.Status
     }
 
