@@ -31,9 +31,10 @@ public class DataUtility {
         return true;
     }
 
-    public static boolean prrcprAudit(SPAR_PRR_CPR sparPrrCpr, String reqID, String operation){
+    public static boolean prrcprAudit(SPAR_PRR_CPR sparPrrCpr, String reqID, String operation, String time){
         List<String> auditTrail = new ArrayList<String>();
         auditTrail.add(reqID);
+        auditTrail.add(time);
         auditTrail.add("SPAR_PRR_CPR");
         auditTrail.add(operation);
         String audit = "HKRegulated: "  + sparPrrCpr.HKRegulated + " | Direction: " + sparPrrCpr.Direction + " | ProductType: " + sparPrrCpr.ProductType + " | ProductSubType:" + sparPrrCpr.ProductSubType +
@@ -44,9 +45,10 @@ public class DataUtility {
         return writeToFile(auditTrail);
     }
 
-    public static boolean HorizonAudit(SPAR_Investment_Horizon investmentHorizon, String reqID, String operation){
+    public static boolean HorizonAudit(SPAR_Investment_Horizon investmentHorizon, String reqID, String operation, String time){
         List<String> auditTrail = new ArrayList<String>();
         auditTrail.add(reqID);
+        auditTrail.add(time);
         auditTrail.add("SPAR_Investment_Horizon");
         auditTrail.add(operation);
         String audit = "HKRegulated: "  + investmentHorizon.HKRegulated + " | Direction: " + investmentHorizon.Direction + " | ProductType: " + investmentHorizon.ProductType + " | ProductSubType:" + investmentHorizon.ProductSubType +
@@ -58,9 +60,10 @@ public class DataUtility {
     }
 
 
-    public static boolean ObjectiveAudit(SPAR_Investment_Objective investmentObjective, String reqID, String operation) {
+    public static boolean ObjectiveAudit(SPAR_Investment_Objective investmentObjective, String reqID, String operation, String time) {
         List<String> auditTrail = new ArrayList<String>();
         auditTrail.add(reqID);
+        auditTrail.add(time);
         auditTrail.add("SPAR_Investment_Objective");
         auditTrail.add(operation);
         String audit = "HKRegulated: "  + investmentObjective.HKRegulated + " | Direction: " + investmentObjective.Direction + " | ProductType: " + investmentObjective.ProductType + " | ProductSubType:" + investmentObjective.ProductSubType +
@@ -84,7 +87,8 @@ public class DataUtility {
                                 x[1],
                                 x[2],
                                 x[3],
-                                x[4]);
+                                x[4],
+                                x[5]);
                     })
                     .collect(Collectors.toList());
             ObjectMapper mapper = new ObjectMapper();
