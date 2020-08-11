@@ -12,7 +12,7 @@ public class SPAR_Investment_Horizon {
     public String VC;
     public String FundMasterList;
     public String Status;
-    public String timeTaken;
+    public String TimeTaken;
 
     public void setValues(String HKRegulated, String Direction, String ProductType, String ProductSubType, String ExecutionType, String InvestmentHorizon, String ProductTenor, String Tenor, String VC, String FundMasterList, String Status){
         this.HKRegulated = HKRegulated;

@@ -47,7 +47,7 @@ public class KIERulesController {
         KIERulesService.getRulesForPRRCPR(sparPrrCpr);
         long timeAfter = System.currentTimeMillis();
         long timeTaken = timeAfter - timeBefore;
-        sparPrrCpr.timeTaken = timeTaken + "ms";
+        sparPrrCpr.TimeTaken = timeTaken + "ms";
         return sparPrrCpr;
     }
 
@@ -70,7 +70,7 @@ public class KIERulesController {
         KIERulesService.getRulesForInvestmentObjective(spar_investment_objective);
         long timeAfter = System.currentTimeMillis();
         long timeTaken = timeAfter - timeBefore;
-        spar_investment_objective.timeTaken = timeTaken + "ms";
+        spar_investment_objective.TimeTaken = timeTaken + "ms";
         return spar_investment_objective;
     }
 
@@ -92,7 +92,7 @@ public class KIERulesController {
         KIERulesService.getRulesForInvestmentHorizon(spar_investment_horizon);
         long timeAfter = System.currentTimeMillis();
         long timeTaken = timeAfter - timeBefore;
-        spar_investment_horizon.timeTaken = timeTaken + "ms";
+        spar_investment_horizon.TimeTaken = timeTaken + "ms";
         return spar_investment_horizon;
     }
 }
