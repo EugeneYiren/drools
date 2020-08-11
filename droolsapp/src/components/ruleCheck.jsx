@@ -61,6 +61,13 @@ class RuleCheck extends Component {
     return '-'
   }
 
+  renderTimeTaken = (response) => {
+    if (response.TimeTaken) {
+      return response.TimeTaken
+    }
+    return '-'
+  }
+
   render() {
     const {
       classes,
@@ -83,6 +90,7 @@ class RuleCheck extends Component {
               <TableCell>Rule Name</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Attestation</TableCell>
+              <TableCell>Time Taken</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,6 +108,9 @@ class RuleCheck extends Component {
               <TableCell>
                 {this.renderAttestation(getInvestmentHorizonRule)}
               </TableCell>
+              <TableCell>
+                {this.renderTimeTaken(getInvestmentHorizonRule)}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
@@ -115,6 +126,9 @@ class RuleCheck extends Component {
               <TableCell>
                 {this.renderAttestation(getInvestmentObjectiveRule)}
               </TableCell>
+              <TableCell>
+                {this.renderTimeTaken(getInvestmentObjectiveRule)}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
@@ -128,6 +142,7 @@ class RuleCheck extends Component {
                 )}
               </TableCell>
               <TableCell>{this.renderAttestation(getPrrCprRule)}</TableCell>
+              <TableCell>{this.renderTimeTaken(getPrrCprRule)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

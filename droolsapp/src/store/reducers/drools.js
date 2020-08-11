@@ -113,6 +113,7 @@ const postPrrCprRuleFailure = (state = INITIAL_STATE, { payload }) => ({
 const getInvestmentHorizonRule = (state = INITIAL_STATE) => ({
   ...state,
   getInvestmentHorizonRuleIsLoading: true,
+  getInvestmentHorizonRule: {},
   getInvestmentHorizonError: null,
 })
 
@@ -132,12 +133,14 @@ const getInvestmentHorizonRuleFailure = (
 ) => ({
   ...state,
   getInvestmentHorizonRuleIsLoading: false,
+  getInvestmentHorizonRule: {},
   getInvestmentHorizonRuleError: payload.error,
 })
 
 const getInvestmentObjectiveRule = (state = INITIAL_STATE) => ({
   ...state,
   getInvestmentObjectiveRuleIsLoading: true,
+  getInvestmentObjectiveRule: {},
   getInvestmentObjectiveRuleError: null,
 })
 
@@ -157,12 +160,14 @@ const getInvestmentObjectiveRuleFailure = (
 ) => ({
   ...state,
   getInvestmentObjectiveRuleIsLoading: false,
+  getInvestmentObjectiveRule: {},
   getInvestmentObjectiveRuleError: payload.error,
 })
 
 const getPrrCprRule = (state = INITIAL_STATE) => ({
   ...state,
   getPrrCprRuleIsLoading: true,
+  getPrrCprRule: {},
   getPrrCprRuleError: null,
 })
 
@@ -176,6 +181,7 @@ const getPrrCprRuleSuccess = (state = INITIAL_STATE, { payload }) => ({
 const getPrrCprRuleFailure = (state = INITIAL_STATE, { payload }) => ({
   ...state,
   getPrrCprRuleIsLoading: false,
+  getPrrCprRule: {},
   getPrrCprRuleError: payload.error,
 })
 
