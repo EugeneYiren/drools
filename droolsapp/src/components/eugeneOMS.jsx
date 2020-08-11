@@ -73,7 +73,7 @@ class EugeneOMS extends Component {
       FundMasterList: 'Y',
 
       // investment objective
-      ClientInvObjective: 'Capital Preservation',
+      ClientInvObjective: '',
       ProductInvObjective: 'Capital Preservation',
 
       // prr cpr
@@ -491,13 +491,18 @@ class EugeneOMS extends Component {
           />
           <br />
           <FormControl className={classes.formControl}>
-            <InputLabel>Execution Type</InputLabel>
+            <InputLabel id="execution-type-outlined-label">
+              Execution Type
+            </InputLabel>
             <Select
+              labelId="execution-type-outlined-label"
+              id="execution-type-outlined"
               value={ExecutionType}
-              inputProps={{
-                name: ExecutionType,
-              }}
               onChange={this.handleChange}
+              label="ExecutionType"
+              inputProps={{
+                name: 'ExecutionType',
+              }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -510,13 +515,18 @@ class EugeneOMS extends Component {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel>HYBF Indicator</InputLabel>
+            <InputLabel id="hybf-indicator-outlined-label">
+              HYBF Indicator
+            </InputLabel>
             <Select
+              labelId="hybf-indicator-outlined-label"
+              id="hybf-indicator-outlined"
               value={HYBFIndicator}
-              inputProps={{
-                name: HYBFIndicator,
-              }}
               onChange={this.handleChange}
+              label="HYBFIndicator"
+              inputProps={{
+                name: 'HYBFIndicator',
+              }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -529,13 +539,18 @@ class EugeneOMS extends Component {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel>Hedging Indicator</InputLabel>
+            <InputLabel id="hedging-indicator-outlined-label">
+              Hedging Indicator
+            </InputLabel>
             <Select
+              labelId="hedging-indicator-outlined-label"
+              id="hedging-indicator-outlined"
               value={HedgingIndicator}
-              inputProps={{
-                name: HedgingIndicator,
-              }}
               onChange={this.handleChange}
+              label="HedgingIndicator"
+              inputProps={{
+                name: 'HedgingIndicator',
+              }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -548,13 +563,16 @@ class EugeneOMS extends Component {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel>CPR</InputLabel>
+            <InputLabel id="cpr-outlined-label">CPR</InputLabel>
             <Select
+              labelId="cpr-outlined-label"
+              id="cpr-outlined"
               value={CPR}
-              inputProps={{
-                name: CPR,
-              }}
               onChange={this.handleChange}
+              label="CPR"
+              inputProps={{
+                name: 'CPR',
+              }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -567,13 +585,16 @@ class EugeneOMS extends Component {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel>PRR</InputLabel>
+            <InputLabel id="prr-outlined-label">PRR</InputLabel>
             <Select
+              labelId="prr-outlined-label"
+              id="prr-outlined"
               value={PRR}
-              inputProps={{
-                name: PRR,
-              }}
               onChange={this.handleChange}
+              label="PRR"
+              inputProps={{
+                name: 'PRR',
+              }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -586,13 +607,18 @@ class EugeneOMS extends Component {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel>PRR {'>'}= CPR</InputLabel>
+            <InputLabel id="prr-more-than-cpr-outlined-label">
+              PRR {'>'}= CPR
+            </InputLabel>
             <Select
+              labelId="prr-more-than-cpr-outlined-label"
+              id="prr-more-than-cpr-outlined"
               value={IsPRRMoreThanOREqualsToCPR}
-              inputProps={{
-                name: IsPRRMoreThanOREqualsToCPR,
-              }}
               onChange={this.handleChange}
+              label="IsPRRMoreThanOREqualsToCPR"
+              inputProps={{
+                name: 'IsPRRMoreThanOREqualsToCPR',
+              }}
             >
               <MenuItem value="">
                 <em>None</em>

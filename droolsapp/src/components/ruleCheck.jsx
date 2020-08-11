@@ -54,6 +54,13 @@ class RuleCheck extends Component {
     return null
   }
 
+  renderAttestation = (response) => {
+    if (response.Status && response.Status.substring(0, 4) === 'hard') {
+      return 'Action Required'
+    }
+    return '-'
+  }
+
   render() {
     const {
       classes,
@@ -90,7 +97,9 @@ class RuleCheck extends Component {
                   getInvestmentHorizonRuleError
                 )}
               </TableCell>
-              <TableCell>NA</TableCell>
+              <TableCell>
+                {this.renderAttestation(getInvestmentHorizonRule)}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
@@ -103,7 +112,9 @@ class RuleCheck extends Component {
                   getInvestmentObjectiveRuleError
                 )}
               </TableCell>
-              <TableCell>NA</TableCell>
+              <TableCell>
+                {this.renderAttestation(getInvestmentObjectiveRule)}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
@@ -116,7 +127,7 @@ class RuleCheck extends Component {
                   getPrrCprRuleError
                 )}
               </TableCell>
-              <TableCell>NA</TableCell>
+              <TableCell>{this.renderAttestation(getPrrCprRule)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
