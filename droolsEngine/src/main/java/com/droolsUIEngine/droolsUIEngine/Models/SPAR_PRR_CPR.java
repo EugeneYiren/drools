@@ -13,6 +13,7 @@ public class SPAR_PRR_CPR {
     public int PRR;
     public String IsPRRMoreThanOREqualsToCPR;
     public String Status;
+    public String timeTaken;
 
     public void setValues(String HKRegulated, String Direction, String ProductType, String ProductSubType, String HYBFIndicator, String ExecutionType,
                           String VCStatus, String HedgingIndicator, int CPR, int PRR, String IsPRRMoreThanOREqualsToCPR, String Status){

@@ -10,6 +10,7 @@ public class SPAR_Investment_Objective {
     public String ClientInvObjective;
     public String ProductInvObjective;
     public String Status;
+    public String timeTaken;
 
     public void setValues(String HKRegulated, String Direction, String ProductType, String ProductSubType, String ExecutionType, String VCStatus, String ClientInvObjective, String PublicInvObjective, String Status){
         this.HKRegulated = HKRegulated;
