@@ -33,7 +33,7 @@ end
 
 rule "SPAR_PRR_CPR_5"
 when
-    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType == "Exclude COCO Bonds", HYBFIndicator == "NA", ExecutionType == "Execution Only", VCStatus == "No", HedgingIndicator == "NA", CPR == 2, PRR == 3, IsPRRMoreThanOREqualsToCPR == "No" )
+    $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType != "", HYBFIndicator == "Y", ExecutionType == "Execution Only", VCStatus == "No", HedgingIndicator == "NA", CPR == 4, PRR > 0, IsPRRMoreThanOREqualsToCPR == "NA" )
 then
 $a.setStatus("soft-block: mismatch");
 
