@@ -20,7 +20,7 @@ end
 
 rule "SPAR_Investment_Horizon_3"
 when
-    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "Yes", FundMasterList == "NA" )
+    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "Y", FundMasterList == "NA" )
 then
 $a.setStatus("soft block: Not allowed");
 
@@ -28,7 +28,7 @@ end
 
 rule "SPAR_Investment_Horizon_4"
 when
-    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Forwards", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "Yes", FundMasterList == "NA" )
+    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Forwards", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "Y", FundMasterList == "NA" )
 then
 $a.setStatus("soft block: Not allowed");
 
@@ -36,7 +36,7 @@ end
 
 rule "SPAR_Investment_Horizon_5"
 when
-    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "No", FundMasterList == "NA" )
+    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Bonds", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "N", FundMasterList == "NA" )
 then
 $a.setStatus("soft block: Mismatch");
 
@@ -44,7 +44,7 @@ end
 
 rule "SPAR_Investment_Horizon_6"
 when
-    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Forwards", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "No", FundMasterList == "NA" )
+    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Forwards", ProductSubType != "", ExecutionType != "", InvestmentHorizon == "A", ProductTenor == "NA", Tenor == "GT1", VC == "N", FundMasterList == "NA" )
 then
 $a.setStatus("soft block: Mismatch");
 
@@ -52,7 +52,7 @@ end
 
 rule "SPAR_Investment_Horizon_7"
 when
-    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Mutual Funds", ExecutionType != "", InvestmentHorizon != "", ProductTenor == "", Tenor == "NA", VC == "No", FundMasterList != "" )
+    $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Mutual Funds", ExecutionType != "", InvestmentHorizon != "", ProductTenor == "", Tenor == "NA", VC == "N", FundMasterList != "" )
 then
 $a.setStatus("Hard block: Mismatch missing Prod Tenor");
 

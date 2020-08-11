@@ -20,7 +20,7 @@ end
 
 rule "SPAR_Investment_Objective_3"
 when
-    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "NA", ExecutionType != "", VCStatus == "Yes", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "NA", ExecutionType != "", VCStatus == "Y", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
 then
 $a.setStatus("soft block: Not allowed");
 
@@ -28,7 +28,7 @@ end
 
 rule "SPAR_Investment_Objective_4"
 when
-    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Swaps", ProductSubType != "", ExecutionType != "", VCStatus == "Yes", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Swaps", ProductSubType != "", ExecutionType != "", VCStatus == "Y", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
 then
 $a.setStatus("soft block: Not allowed");
 
@@ -36,7 +36,7 @@ end
 
 rule "SPAR_Investment_Objective_5"
 when
-    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "NA", ExecutionType != "", VCStatus == "No", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "NA", ExecutionType != "", VCStatus == "N", ClientInvObjective == "Capital Preservation", ProductInvObjective == "Income Generation" )
 then
 $a.setStatus("soft block: Mismatch");
 
@@ -44,7 +44,7 @@ end
 
 rule "SPAR_Investment_Objective_6"
 when
-    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Swaps", ProductSubType != "", ExecutionType != "", VCStatus == "No", ClientInvObjective != ProductInvObjective )
+    $a : SPAR_Investment_Objective( HKRegulated == "Yes", Direction == "Buy", ProductType == "FX Swaps", ProductSubType != "", ExecutionType != "", VCStatus == "N", ClientInvObjective != ProductInvObjective )
 then
 $a.setStatus("soft block: Mismatch");
 
