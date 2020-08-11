@@ -54,7 +54,7 @@ rule "SPAR_Investment_Horizon_7"
 when
     $a : SPAR_Investment_Horizon( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType == "Mutual Funds", ExecutionType != "", InvestmentHorizon != "", ProductTenor == "", Tenor == "NA", VC == "N", FundMasterList != "" )
 then
-$a.setStatus("Hard block: Mismatch missing Prod Tenor");
+$a.setStatus("hard block: Mismatch missing Prod Tenor");
 
 end
 

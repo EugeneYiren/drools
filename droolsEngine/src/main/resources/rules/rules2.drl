@@ -27,7 +27,7 @@ rule "SPAR_PRR_CPR_4"
 when
     $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType == "Exclude EQD KODA", HYBFIndicator == "NA", ExecutionType == "Advisory", VCStatus == "N", HedgingIndicator == "NA", CPR == 1, PRR >= 2, IsPRRMoreThanOREqualsToCPR == "No" )
 then
-$a.setStatus("soft-block: not allowed");
+$a.setStatus("soft block: Not allowed");
 
 end
 
@@ -35,7 +35,7 @@ rule "SPAR_PRR_CPR_5"
 when
     $a : SPAR_PRR_CPR( HKRegulated == "Yes", Direction == "Buy", ProductType == "Funds", ProductSubType != "", HYBFIndicator == "Y", ExecutionType == "Execution Only", VCStatus == "N", HedgingIndicator == "NA", CPR == 4, PRR > 0, IsPRRMoreThanOREqualsToCPR == "NA" )
 then
-$a.setStatus("soft-block: mismatch");
+$a.setStatus("soft block: Mismatch");
 
 end
 
@@ -43,7 +43,7 @@ rule "SPAR_PRR_CPR_6"
 when
     $a : SPAR_PRR_CPR( HKRegulated == "No", Direction == "Buy", ProductType == "Equity Derivative", ProductSubType != "", HYBFIndicator == "NA", ExecutionType == "Advisory", VCStatus == "N", HedgingIndicator == "NA", CPR == 1, PRR == 2, IsPRRMoreThanOREqualsToCPR == "No" )
 then
-$a.setStatus("soft block: mismatch");
+$a.setStatus("soft block: Mismatch");
 
 end
 
