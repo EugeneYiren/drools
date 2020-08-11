@@ -1,0 +1,7 @@
+ID, Category, Operation, Rule, Status
+3213,SPAR_Investment_Horizon,Create rule,HKRegulated: No | Direction: Buy | ProductType: Funds | ProductSubType:Exclude Mutual Funds | ExecutionType: ALL | VCStatus: Y | Investment Horizon: B | ProductTenor: A | TenorGT2 | FundMasterList: Y,Soft Block
+4321,SPAR_Investment_Horizon,Invoke rule,HKRegulated: Yes | Direction: Buy | ProductType: Funds | ProductSubType:Exclude Mutual Funds | ExecutionType: ALL | VCStatus: Yes | Investment Horizon: D | ProductTenor: D | TenorNA | FundMasterList: Yes,pass
+1234567,SPAR_Investment_Objective,Create rule,HKRegulated: No | Direction: Buy | ProductType: Funds | ProductSubType:Exclude Mutual Funds | ExecutionType: ALL | VCStatus: B | ClientInvObjective: A | ProductInvObjective: GT2,Soft Block
+0987,SPAR_Investment_Objective,Invoke rule,HKRegulated: Yes | Direction: Buy | ProductType: Funds | ProductSubType:Exclude Mutual Funds | ExecutionType: ALL | VCStatus: Yes | ClientInvObjective: A | ProductInvObjective: ,hard block: Missing Prod Objective
+123,SPAR_PRR_CPR,Invoke rule,HKRegulated: Yes | Direction: Buy | ProductType: Funds | ProductSubType:Exclude Mutual Funds | HYBFIndicatorNA | ExecutionType: Execution Only | VCStatus: Y | HedgingIndicator: NA | CPR: 1 | PRR1 | IsPRRMoreThanOREqualsToCPR: NA,pass
+1234,SPAR_PRR_CPR,Create rule,HKRegulated: No | Direction: Buy | ProductType: Funds | ProductSubType:Exclude Mutual Funds | HYBFIndicatorALL | ExecutionType: ALL | VCStatus: B | HedgingIndicator: A | CPR: 1 | PRR2 | IsPRRMoreThanOREqualsToCPR: GT2,Soft Block
