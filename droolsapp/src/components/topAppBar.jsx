@@ -15,6 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import AddIcon from '@material-ui/icons/Add'
 import ShowChartIcon from '@material-ui/icons/ShowChart'
+import PermIdentityIcon from '@material-ui/icons/PermIdentity'
 import { withStyles } from '@material-ui/core/styles'
 
 const drawerWidth = 240
@@ -95,7 +96,12 @@ class TopAppBar extends Component {
   }
 
   render() {
-    const { classes, onCreateNewRuleClick, onOMSClick } = this.props
+    const {
+      classes,
+      onCreateNewRuleClick,
+      onOMSClick,
+      onAuditTrailClick,
+    } = this.props
     const { isOpen } = this.state
 
     return (
@@ -155,6 +161,12 @@ class TopAppBar extends Component {
               </ListItemIcon>
               <ListItemText primary="OMS" />
             </ListItem>
+            <ListItem button onClick={onAuditTrailClick}>
+              <ListItemIcon>
+                <PermIdentityIcon />
+              </ListItemIcon>
+              <ListItemText primary="Audit Trail" />
+            </ListItem>
           </List>
         </Drawer>
       </>
@@ -166,6 +178,7 @@ TopAppBar.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   onCreateNewRuleClick: PropTypes.func.isRequired,
   onOMSClick: PropTypes.func.isRequired,
+  onAuditTrailClick: PropTypes.func.isRequired,
 }
 
 TopAppBar.defaultProps = {}

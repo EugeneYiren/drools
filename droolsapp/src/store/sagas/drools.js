@@ -19,6 +19,9 @@ import {
   POST_PRR_CPR_RULE,
   postPrrCprRuleSuccess,
   postPrrCprRuleFailure,
+  GET_AUDIT_TRAIL,
+  getAuditTrailSuccess,
+  getAuditTrailFailure,
 } from '../actions/drools'
 import {
   getInvestmentHorizonRule as getInvestmentHorizonRuleAPI,
@@ -27,6 +30,7 @@ import {
   postInvestmentHorizonRule as postInvestmentHorizonRuleAPI,
   postInvestmentObjectiveRule as postInvestmentObjectiveRuleAPI,
   postPrrCprRule as postPrrCprRuleAPI,
+  getAuditTrail as getAuditTrailAPI,
 } from '../../api'
 
 export default () => {
@@ -144,6 +148,19 @@ export default () => {
     yield takeLatest(GET_PRR_CPR_RULE, getPrrCprRule)
   }
 
+  function* getAuditTrail({ payload }) {
+    try {
+      const response = yield call(getAuditTrailAPI, payload.data)
+      yield put(getAuditTrailSuccess(response.data))
+    } catch (error) {
+      yield put(getAuditTrailFailure(error))
+    }
+  }
+
+  function* watchGetAuditTrail() {
+    yield takeLatest(GET_AUDIT_TRAIL, getAuditTrail)
+  }
+
   // POST calls
   function* postInvestmentHorizonRule({ payload }) {
     try {
@@ -194,5 +211,6 @@ export default () => {
     watchPostInvestmentHorizonRule,
     watchPostInvestmentObjectiveRule,
     watchPostPrrCprRule,
+    watchGetAuditTrail,
   }
 }

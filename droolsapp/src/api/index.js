@@ -8,6 +8,7 @@ import {
   generateUrlGetInvestmentHorizonRule,
   generateUrlGetInvestmentObjectiveRule,
   generateUrlGetPrrCprRule,
+  generateUrlGetAuditTrail,
 } from './urlGenerator'
 
 let headers = {}
@@ -131,4 +132,9 @@ export const getPrrCprRule = (
       IsPRRMoreThanOREqualsToCPR
     )
   )
+}
+
+export const getAuditTrail = () => {
+  setRequestHeader(`GET_AUDIT_TRAIL_${uuidv1()}`)
+  return axiosApi.get(generateUrlGetAuditTrail())
 }

@@ -18,6 +18,7 @@ import SubmitNewRule from '../components/submitNewRule'
 import TopAppBar from '../components/topAppBar'
 import EugeneOMS from '../components/eugeneOMS'
 import RuleCheck from '../components/ruleCheck'
+import AuditTrail from '../components/auditTrail'
 
 const useStyles = (theme) => ({
   root: {
@@ -57,6 +58,12 @@ class HomePage extends Component {
     })
   }
 
+  handleAuditTrailClick = () => {
+    this.setState({
+      component: 'Audit Trail',
+    })
+  }
+
   renderComponent = () => {
     const { component } = this.state
     if (component === 'Create New Rule')
@@ -65,6 +72,7 @@ class HomePage extends Component {
       )
     if (component === 'OMS')
       return <EugeneOMS onNextButtonClick={this.handleNextButtonClick} />
+    if (component === 'Audit Trail') return <AuditTrail />
     if (component === 'Submit New Rule')
       return <SubmitNewRule onBackButtonClick={this.handleCreateNewRuleClick} />
     if (component === 'Rule Check') return <RuleCheck />
@@ -166,6 +174,7 @@ class HomePage extends Component {
         <TopAppBar
           onCreateNewRuleClick={this.handleCreateNewRuleClick}
           onOMSClick={this.handleOMSClick}
+          onAuditTrailClick={this.handleAuditTrailClick}
         />
         <main className={classes.content}>
           <div className={classes.toolbar} />

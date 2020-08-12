@@ -26,6 +26,10 @@ export const GET_PRR_CPR_RULE = 'GET_PRR_CPR_RULE'
 export const GET_PRR_CPR_RULE_SUCCESS = 'GET_PRR_CPR_RULE_SUCCESS'
 export const GET_PRR_CPR_RULE_FAILURE = 'GET_PRR_CPR_RULE_FAILURE'
 
+export const GET_AUDIT_TRAIL = 'GET_AUDIT_TRAIL'
+export const GET_AUDIT_TRAIL_SUCCESS = 'GET_AUDIT_TRAIL_SUCCESS'
+export const GET_AUDIT_TRAIL_FAILURE = 'GET_AUDIT_TRAIL_FAILURE'
+
 // GET calls
 export const getInvestmentHorizonRule = (
   HKRegulated,
@@ -133,6 +137,21 @@ export const getPrrCprRuleSuccess = (data) => ({
 
 export const getPrrCprRuleFailure = (error) => ({
   type: GET_PRR_CPR_RULE_FAILURE,
+  payload: { error },
+})
+
+export const getAuditTrail = (data) => ({
+  type: GET_AUDIT_TRAIL,
+  payload: { data },
+})
+
+export const getAuditTrailSuccess = (data) => ({
+  type: GET_AUDIT_TRAIL_SUCCESS,
+  payload: { data },
+})
+
+export const getAuditTrailFailure = (error) => ({
+  type: GET_AUDIT_TRAIL_FAILURE,
   payload: { error },
 })
 

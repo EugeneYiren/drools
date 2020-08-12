@@ -10,6 +10,7 @@ export default function* root() {
     watchPostInvestmentHorizonRule,
     watchPostInvestmentObjectiveRule,
     watchPostPrrCprRule,
+    watchGetAuditTrail,
   } = DroolsSaga()
 
   yield all([fork(watchGetInvestmentHorizonRule)])
@@ -18,4 +19,5 @@ export default function* root() {
   yield all([fork(watchPostInvestmentHorizonRule)])
   yield all([fork(watchPostInvestmentObjectiveRule)])
   yield all([fork(watchPostPrrCprRule)])
+  yield all([fork(watchGetAuditTrail)])
 }

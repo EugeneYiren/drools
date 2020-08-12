@@ -19,6 +19,9 @@ import {
   GET_PRR_CPR_RULE,
   GET_PRR_CPR_RULE_SUCCESS,
   GET_PRR_CPR_RULE_FAILURE,
+  GET_AUDIT_TRAIL,
+  GET_AUDIT_TRAIL_SUCCESS,
+  GET_AUDIT_TRAIL_FAILURE,
 } from '../actions/drools'
 
 const INITIAL_STATE = {
@@ -37,6 +40,10 @@ const INITIAL_STATE = {
   getPrrCprRuleIsLoading: false,
   getPrrCprRule: {},
   getPrrCprRuleError: null,
+
+  getAuditTrailIsLoading: false,
+  getAuditTrail: [],
+  getAuditTrailError: null,
 }
 
 // POST calls
@@ -185,6 +192,27 @@ const getPrrCprRuleFailure = (state = INITIAL_STATE, { payload }) => ({
   getPrrCprRuleError: payload.error,
 })
 
+const getAuditTrail = (state = INITIAL_STATE) => ({
+  ...state,
+  getAuditTrailIsLoading: true,
+  getAuditTrail: [],
+  getAuditTrailError: null,
+})
+
+const getAuditTrailSuccess = (state = INITIAL_STATE, { payload }) => ({
+  ...state,
+  getAuditTrailIsLoading: false,
+  getAuditTrail: payload.data,
+  getAuditTrailError: null,
+})
+
+const getAuditTrailFailure = (state = INITIAL_STATE, { payload }) => ({
+  ...state,
+  getAuditTrailIsLoading: false,
+  getAuditTrail: [],
+  getAuditTrailError: payload.error,
+})
+
 const ACTION_HANDLERS = {
   [POST_INVESTMENT_HORIZON_RULE]: postInvestmentHorizonRule,
   [POST_INVESTMENT_HORIZON_RULE_SUCCESS]: postInvestmentHorizonRuleSuccess,
@@ -204,6 +232,9 @@ const ACTION_HANDLERS = {
   [GET_PRR_CPR_RULE]: getPrrCprRule,
   [GET_PRR_CPR_RULE_SUCCESS]: getPrrCprRuleSuccess,
   [GET_PRR_CPR_RULE_FAILURE]: getPrrCprRuleFailure,
+  [GET_AUDIT_TRAIL]: getAuditTrail,
+  [GET_AUDIT_TRAIL_SUCCESS]: getAuditTrailSuccess,
+  [GET_AUDIT_TRAIL_FAILURE]: getAuditTrailFailure,
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

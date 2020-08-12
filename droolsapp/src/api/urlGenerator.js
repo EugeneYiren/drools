@@ -18,7 +18,7 @@ export const generateUrlGetInvestmentHorizonRule = (
   VC,
   FundMasterList
 ) =>
-  `http://localhost:8080/v0/rule/get-rule/SPAR-Investment-Horizon?HKRegulated=${HKRegulated}&Direction=${Direction}&ProductType=${ProductType}&ProductSubType=${ProductSubType}&ExecutionType=${ExecutionType}&InvestmentHorizon=${InvestmentHorizon}&ProductTenor=${ProductTenor}&Tenor=${Tenor}&VC=${VC}&FundMasterList=${FundMasterList}`
+  `v0/rule/get-rule/SPAR-Investment-Horizon?HKRegulated=${HKRegulated}&Direction=${Direction}&ProductType=${ProductType}&ProductSubType=${ProductSubType}&ExecutionType=${ExecutionType}&InvestmentHorizon=${InvestmentHorizon}&ProductTenor=${ProductTenor}&Tenor=${Tenor}&VC=${VC}&FundMasterList=${FundMasterList}`
 
 export const generateUrlGetInvestmentObjectiveRule = (
   HKRegulated,
@@ -30,7 +30,7 @@ export const generateUrlGetInvestmentObjectiveRule = (
   ClientInvObjective,
   ProductInvObjective
 ) =>
-  `http://localhost:8080/v0/rule/get-rule/SPAR-Investment-Objective?HKRegulated=${HKRegulated}&Direction=${Direction}&ProductType=${ProductType}&ProductSubType=${ProductSubType}&ExecutionType=${ExecutionType}&VCStatus=${VCStatus}&ClientInvObjective=${ClientInvObjective}&ProductInvObjective=${ProductInvObjective}`
+  `v0/rule/get-rule/SPAR-Investment-Objective?HKRegulated=${HKRegulated}&Direction=${Direction}&ProductType=${ProductType}&ProductSubType=${ProductSubType}&ExecutionType=${ExecutionType}&VCStatus=${VCStatus}&ClientInvObjective=${ClientInvObjective}&ProductInvObjective=${ProductInvObjective}`
 
 export const generateUrlGetPrrCprRule = (
   HKRegulated,
@@ -45,4 +45,6 @@ export const generateUrlGetPrrCprRule = (
   PRR,
   IsPRRMoreThanOREqualsToCPR
 ) =>
-  `http://localhost:8080/v0/rule/get-rule/SPAR-PRR-CPR?HKRegulated=${HKRegulated}&Direction=${Direction}&ProductType=${ProductType}&ProductSubType=${ProductSubType}&HYBFIndicator=${HYBFIndicator}&ExecutionType=${ExecutionType}&VCStatus=${VCStatus}&HedgingIndicator=${HedgingIndicator}&CPR=${CPR}&PRR=${PRR}&IsPRRMoreThanOREqualsToCPR=${IsPRRMoreThanOREqualsToCPR}`
+  `v0/rule/get-rule/SPAR-PRR-CPR?HKRegulated=${HKRegulated}&Direction=${Direction}&ProductType=${ProductType}&ProductSubType=${ProductSubType}&HYBFIndicator=${HYBFIndicator}&ExecutionType=${ExecutionType}&VCStatus=${VCStatus}&HedgingIndicator=${HedgingIndicator}&CPR=${CPR}&PRR=${PRR}&IsPRRMoreThanOREqualsToCPR=${IsPRRMoreThanOREqualsToCPR}`
+
+export const generateUrlGetAuditTrail = () => 'v0/rule/get-audit'
