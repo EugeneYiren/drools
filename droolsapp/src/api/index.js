@@ -21,7 +21,7 @@ headers = {
 }
 
 const axiosApi = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://droolspocwebservice.herokuapp.com/',
   headers,
 })
 
