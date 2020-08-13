@@ -6,7 +6,8 @@ cache:
     - node_modules
 script:
   - cd droolsapp
-  - npm run deploy
+  - npm i
+  - npm run build
 
 deploy:
   provider: pages
