@@ -6,6 +6,11 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import { withStyles } from '@material-ui/core/styles'
 
+import {
+  INVESTMENT_HORIZON_ATTRIBUTE_MAPPING,
+  PRODUCT_TENOR_ATTRIBUTE_MAPPING,
+} from '../utils/constants'
+
 const useStyles = (theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -48,11 +53,27 @@ class RuleDetails extends Component {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {ruleObject[entries].map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
-            </MenuItem>
-          ))}
+          {ruleObject[entries].map((item) => {
+            if (entries === 'InvestmentHorizon') {
+              return (
+                <MenuItem key={item} value={item}>
+                  {INVESTMENT_HORIZON_ATTRIBUTE_MAPPING[item]}
+                </MenuItem>
+              )
+            }
+            if (entries === 'ProductTenor') {
+              return (
+                <MenuItem key={item} value={item}>
+                  {PRODUCT_TENOR_ATTRIBUTE_MAPPING[item]}
+                </MenuItem>
+              )
+            }
+            return (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            )
+          })}
         </Select>
       </FormControl>
     ))
