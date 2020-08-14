@@ -167,7 +167,7 @@ class EugeneOMS extends Component {
 
     return (
       <>
-        <Grid container spacing={8}>
+        <Grid container spacing={6}>
           <Grid item xs={12} md={4} xl={3}>
             <Typography variant="h5">Order Form</Typography>
             <Typography
