@@ -17,8 +17,8 @@ export const INVESTMENT_HORIZON = {
   ],
   ProductSubType: ['Mutual Funds', 'Exclude Mutual Funds'],
   ExecutionType: ['Advisory', 'Execution Only'],
-  InvestmentHorizon: ['A', 'B', 'C', 'D', 'A, B, C', 'B, C, D', 'C, D', 'NA'],
-  ProductTenor: ['A', 'B', 'C', 'D', 'NA', 'B, C, D', 'C, D'],
+  InvestmentHorizon: ['A', 'B', 'C', 'D', 'NA'],
+  ProductTenor: ['A', 'B', 'C', 'D', 'NA'],
   Tenor: [
     'Invalid',
     'GT1',
@@ -60,6 +60,22 @@ export const INVESTMENT_HORIZON_MAPPING = {
   VC: 'VC Status',
   FundMasterList: 'Fund Master List',
   Status: 'Status',
+}
+
+export const INVESTMENT_HORIZON_ATTRIBUTE_MAPPING = {
+  A: '> 1 year',
+  B: '> 5 years',
+  C: '> 10 years',
+  D: 'Any investment time horizon',
+  NA: 'NA',
+}
+
+export const PRODUCT_TENOR_ATTRIBUTE_MAPPING = {
+  A: '1 year',
+  B: '4 years',
+  C: '5 years',
+  D: 'Up to 1 year',
+  NA: 'NA',
 }
 
 export const INVESTMENT_OBJECTIVE = {

@@ -13,6 +13,8 @@ import { withStyles } from '@material-ui/core/styles'
 
 import {
   INVESTMENT_HORIZON,
+  INVESTMENT_HORIZON_ATTRIBUTE_MAPPING,
+  PRODUCT_TENOR_ATTRIBUTE_MAPPING,
   INVESTMENT_OBJECTIVE,
   PRR_CPR,
 } from '../utils/constants'
@@ -21,30 +23,40 @@ const useStyles = (theme) => ({
   formControl: {
     margin: theme.spacing(1),
     marginTop: theme.spacing(2),
-    minWidth: 160,
+    width: 200,
   },
-  gridWrapper: {
-    paddingBottom: theme.spacing(6),
+  detailsNameWrapper: {
+    paddingTop: theme.spacing(4),
+    textDecoration: 'underline',
   },
-  portfolioDetailsForm: {
+  /*   portfolioDetailsForm: {
     margin: theme.spacing(2),
     minWidth: 200,
-  },
-  paper: {
+  }, */
+  paper1stColumn: {
     marginTop: theme.spacing(2),
     overflow: 'auto',
-    width: 'fit-content',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '8px',
   },
-  paperTextWrapper: {
+  paper2ndColumn: {
+    marginTop: theme.spacing(2),
+    overflow: 'auto',
+    padding: '8px',
+  },
+  /*   paperTextWrapper: {
     paddingTop: 5,
     paddingLeft: 5,
     fontStyle: 'italic',
     color: 'gray',
-  },
+  }, */
   priceQuantityWrapper: {
     margin: theme.spacing(1),
-    minWidth: 160,
-    width: 160,
+    display: 'inline-block',
+  },
+  buttonWrapper: {
+    paddingTop: theme.spacing(8),
   },
 })
 
@@ -53,10 +65,8 @@ class EugeneOMS extends Component {
     super(props)
     this.state = {
       // not used
-      portfolioNo: '123456',
-      isPortfolioClicked: true,
-      instrumentDetails: '',
-      isInstrumentDetailsClicked: false,
+      portfolioNo: '1000123456-1',
+      instrumentDetails: 'Fund',
 
       // common
       HKRegulated: 'Yes',
@@ -82,34 +92,6 @@ class EugeneOMS extends Component {
       CPR: '4',
       PRR: '4',
       IsPRRMoreThanOREqualsToCPR: 'NA',
-    }
-  }
-
-  handlePortfolioNoChange = (e) => {
-    this.setState({ portfolioNo: e.target.value })
-
-    if (e.target.value !== '') {
-      this.setState({
-        isPortfolioClicked: true,
-      })
-    } else {
-      this.setState({
-        isPortfolioClicked: false,
-      })
-    }
-  }
-
-  handleInstrumentChange = (e) => {
-    this.setState({ instrumentDetails: e.target.value })
-
-    if (e.target.value !== '') {
-      this.setState({
-        isInstrumentDetailsClicked: true,
-      })
-    } else {
-      this.setState({
-        isInstrumentDetailsClicked: false,
-      })
     }
   }
 
@@ -166,11 +148,9 @@ class EugeneOMS extends Component {
     const { classes } = this.props
     const {
       portfolioNo,
-      isPortfolioClicked,
+      instrumentDetails,
       InvestmentHorizon,
       ClientInvObjective,
-      instrumentDetails,
-      isInstrumentDetailsClicked,
       ProductSubType,
       ProductTenor,
       Tenor,
@@ -183,37 +163,93 @@ class EugeneOMS extends Component {
       HedgingIndicator,
       CPR,
       PRR,
-      IsPRRMoreThanOREqualsToCPR,
     } = this.state
 
     return (
       <>
-        <Grid className={classes.gridWrapper}>
-          <Typography variant="h5">Choose Portfolio</Typography>
-          <FormControl className={classes.formControl}>
-            <InputLabel>Portfolio No.</InputLabel>
-            <Select
-              value={portfolioNo}
-              inputProps={{
-                name: 'portfolioNo',
-              }}
-              onChange={this.handlePortfolioNoChange}
+        <Grid container spacing={8}>
+          <Grid item xs={12} md={4} xl={3}>
+            <Typography variant="h5">Order Form</Typography>
+            <Typography
+              variant="subtitle1"
+              className={classes.detailsNameWrapper}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value="123456">123456</MenuItem>
-            </Select>
-          </FormControl>
-          {isPortfolioClicked ? (
-            <Paper className={classes.paper}>
-              <Typography variant="body2" className={classes.paperTextWrapper}>
-                Portfolio Details
-              </Typography>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              Portfolio/Instrument Details
+            </Typography>
+            <Paper className={classes.paper1stColumn}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="portfolio-no-select-outlined-label">
+                  Portfolio No.
+                </InputLabel>
+                <Select
+                  labelId="portfolio-no-select-outlined-label"
+                  id="portfolio-no-select-outlined"
+                  value={portfolioNo}
+                  onChange={this.handleChange}
+                  label="portfolioNo"
+                  inputProps={{
+                    name: 'portfolioNo',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="1000123456-1">1000123456-1</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="instrument-det-select-outlined-label">
+                  Instrument
+                </InputLabel>
+                <Select
+                  labelId="instrument-det-select-outlined-label"
+                  id="instrument-det-select-outlined"
+                  value={instrumentDetails}
+                  onChange={this.handleChange}
+                  label="instrumentDetails"
+                  inputProps={{
+                    name: 'instrumentDetails',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="Fund">Fund: Eugene&apos;s Fund</MenuItem>
+                </Select>
+              </FormControl>
+            </Paper>
+            <Typography
+              variant="subtitle1"
+              className={classes.detailsNameWrapper}
+            >
+              Order Details (Buy)
+            </Typography>
+            <Paper className={classes.paper1stColumn}>
+              <TextField
+                id="standard-basic"
+                label="Price"
+                className={classes.priceQuantityWrapper}
+              />
+              <TextField
+                id="filled-basic"
+                label="Quantity"
+                className={classes.priceQuantityWrapper}
+              />
+            </Paper>
+          </Grid>
+
+          {/* 2nd column */}
+
+          <Grid item xs={12} md={8} xl={4}>
+            <Typography variant="h5">Simulated Data from Backend</Typography>
+            <Typography
+              variant="subtitle1"
+              className={classes.detailsNameWrapper}
+            >
+              Portfolio Attributes
+            </Typography>
+            <Paper className={classes.paper2ndColumn}>
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="investment-horizon-select-outlined-label">
                   Investment Horizon
                 </InputLabel>
@@ -232,15 +268,12 @@ class EugeneOMS extends Component {
                   </MenuItem>
                   {INVESTMENT_HORIZON.InvestmentHorizon.map((item) => (
                     <MenuItem key={item} value={item}>
-                      {item}
+                      {INVESTMENT_HORIZON_ATTRIBUTE_MAPPING[item]}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="investment-objective-select-outlined-label">
                   Client Inv Objective
                 </InputLabel>
@@ -264,35 +297,83 @@ class EugeneOMS extends Component {
                   ))}
                 </Select>
               </FormControl>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="cpr-outlined-label">CPR</InputLabel>
+                <Select
+                  labelId="cpr-outlined-label"
+                  id="cpr-outlined"
+                  value={CPR}
+                  onChange={this.handleChange}
+                  label="CPR"
+                  inputProps={{
+                    name: 'CPR',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {PRR_CPR.CPR.map((item) => (
+                    <MenuItem key={item} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="vc-status-outlined-label">VC Status</InputLabel>
+                <Select
+                  labelId="vc-status-outlined-label"
+                  id="vc-status-outlined"
+                  value={VCStatus}
+                  onChange={this.handleChange}
+                  label="VCStatus"
+                  inputProps={{
+                    name: 'VCStatus',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {INVESTMENT_HORIZON.VC.map((item) => (
+                    <MenuItem key={item} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="execution-type-outlined-label">
+                  Execution Type
+                </InputLabel>
+                <Select
+                  labelId="execution-type-outlined-label"
+                  id="execution-type-outlined"
+                  value={ExecutionType}
+                  onChange={this.handleChange}
+                  label="ExecutionType"
+                  inputProps={{
+                    name: 'ExecutionType',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {INVESTMENT_HORIZON.ExecutionType.map((item) => (
+                    <MenuItem key={item} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Paper>
-          ) : null}
-        </Grid>
-        <Grid className={classes.gridWrapper}>
-          <Typography variant="h5">Instrument Details</Typography>
-          <FormControl className={classes.formControl}>
-            <InputLabel>Instrument</InputLabel>
-            <Select
-              value={instrumentDetails}
-              inputProps={{
-                name: 'instrumentDetails',
-              }}
-              onChange={this.handleInstrumentChange}
+            <Typography
+              variant="subtitle1"
+              className={classes.detailsNameWrapper}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value="123456">Fund: Eugene&apos;s Fund</MenuItem>
-            </Select>
-          </FormControl>
-          {isInstrumentDetailsClicked ? (
-            <Paper className={classes.paper}>
-              <Typography variant="body2" className={classes.paperTextWrapper}>
-                Instrument Details
-              </Typography>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              Product Attributes
+            </Typography>
+            <Paper className={classes.paper2ndColumn}>
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="hk-regulated-select-outlined-label">
                   HK Regulated
                 </InputLabel>
@@ -316,10 +397,7 @@ class EugeneOMS extends Component {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="product-sub-type-select-outlined-label">
                   Product Sub Type
                 </InputLabel>
@@ -343,10 +421,7 @@ class EugeneOMS extends Component {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="product-tenor-select-outlined-label">
                   Product Tenor
                 </InputLabel>
@@ -365,15 +440,12 @@ class EugeneOMS extends Component {
                   </MenuItem>
                   {INVESTMENT_HORIZON.ProductTenor.map((item) => (
                     <MenuItem key={item} value={item}>
-                      {item}
+                      {PRODUCT_TENOR_ATTRIBUTE_MAPPING[item]}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="tenor-select-outlined-label">Tenor</InputLabel>
                 <Select
                   labelId="tenor-select-outlined-label"
@@ -395,35 +467,7 @@ class EugeneOMS extends Component {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
-                <InputLabel id="vc-status-outlined-label">VC Status</InputLabel>
-                <Select
-                  labelId="vc-status-outlined-label"
-                  id="vc-status-outlined"
-                  value={VCStatus}
-                  onChange={this.handleChange}
-                  label="VCStatus"
-                  inputProps={{
-                    name: 'VCStatus',
-                  }}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {INVESTMENT_HORIZON.VC.map((item) => (
-                    <MenuItem key={item} value={item}>
-                      {item}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="fund-master-list-outlined-label">
                   Fund Master List
                 </InputLabel>
@@ -447,10 +491,7 @@ class EugeneOMS extends Component {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.portfolioDetailsForm}
-              >
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="product-inv-objective-outlined-label">
                   Product Inv Objective
                 </InputLabel>
@@ -474,166 +515,83 @@ class EugeneOMS extends Component {
                   ))}
                 </Select>
               </FormControl>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="prr-outlined-label">PRR</InputLabel>
+                <Select
+                  labelId="prr-outlined-label"
+                  id="prr-outlined"
+                  value={PRR}
+                  onChange={this.handleChange}
+                  label="PRR"
+                  inputProps={{
+                    name: 'PRR',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {PRR_CPR.PRR.map((item) => (
+                    <MenuItem key={item} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="hybf-indicator-outlined-label">
+                  HYBF Indicator
+                </InputLabel>
+                <Select
+                  labelId="hybf-indicator-outlined-label"
+                  id="hybf-indicator-outlined"
+                  value={HYBFIndicator}
+                  onChange={this.handleChange}
+                  label="HYBFIndicator"
+                  inputProps={{
+                    name: 'HYBFIndicator',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {PRR_CPR.HYBFIndicator.map((item) => (
+                    <MenuItem key={item} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="hedging-indicator-outlined-label">
+                  Hedging Indicator
+                </InputLabel>
+                <Select
+                  labelId="hedging-indicator-outlined-label"
+                  id="hedging-indicator-outlined"
+                  value={HedgingIndicator}
+                  onChange={this.handleChange}
+                  label="HedgingIndicator"
+                  inputProps={{
+                    name: 'HedgingIndicator',
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {PRR_CPR.HedgingIndicator.map((item) => (
+                    <MenuItem key={item} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Paper>
-          ) : null}
+          </Grid>
         </Grid>
-        <Grid className={classes.gridWrapper}>
-          <Typography variant="h5">Order Details (Buy)</Typography>
-          <TextField
-            id="standard-basic"
-            label="Price"
-            className={classes.priceQuantityWrapper}
-          />
-          <TextField
-            id="filled-basic"
-            label="Quantity"
-            className={classes.priceQuantityWrapper}
-          />
-          <br />
-          <FormControl className={classes.formControl}>
-            <InputLabel id="execution-type-outlined-label">
-              Execution Type
-            </InputLabel>
-            <Select
-              labelId="execution-type-outlined-label"
-              id="execution-type-outlined"
-              value={ExecutionType}
-              onChange={this.handleChange}
-              label="ExecutionType"
-              inputProps={{
-                name: 'ExecutionType',
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {INVESTMENT_HORIZON.ExecutionType.map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="hybf-indicator-outlined-label">
-              HYBF Indicator
-            </InputLabel>
-            <Select
-              labelId="hybf-indicator-outlined-label"
-              id="hybf-indicator-outlined"
-              value={HYBFIndicator}
-              onChange={this.handleChange}
-              label="HYBFIndicator"
-              inputProps={{
-                name: 'HYBFIndicator',
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {PRR_CPR.HYBFIndicator.map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="hedging-indicator-outlined-label">
-              Hedging Indicator
-            </InputLabel>
-            <Select
-              labelId="hedging-indicator-outlined-label"
-              id="hedging-indicator-outlined"
-              value={HedgingIndicator}
-              onChange={this.handleChange}
-              label="HedgingIndicator"
-              inputProps={{
-                name: 'HedgingIndicator',
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {PRR_CPR.HedgingIndicator.map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="cpr-outlined-label">CPR</InputLabel>
-            <Select
-              labelId="cpr-outlined-label"
-              id="cpr-outlined"
-              value={CPR}
-              onChange={this.handleChange}
-              label="CPR"
-              inputProps={{
-                name: 'CPR',
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {PRR_CPR.CPR.map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="prr-outlined-label">PRR</InputLabel>
-            <Select
-              labelId="prr-outlined-label"
-              id="prr-outlined"
-              value={PRR}
-              onChange={this.handleChange}
-              label="PRR"
-              inputProps={{
-                name: 'PRR',
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {PRR_CPR.PRR.map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="prr-more-than-cpr-outlined-label">
-              PRR {'>'}= CPR
-            </InputLabel>
-            <Select
-              labelId="prr-more-than-cpr-outlined-label"
-              id="prr-more-than-cpr-outlined"
-              value={IsPRRMoreThanOREqualsToCPR}
-              onChange={this.handleChange}
-              label="IsPRRMoreThanOREqualsToCPR"
-              inputProps={{
-                name: 'IsPRRMoreThanOREqualsToCPR',
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {PRR_CPR.IsPRRMoreThanOREqualsToCPR.map((item) => (
-                <MenuItem key={item} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid className={classes.gridWrapper}>
+
+        <Grid className={classes.buttonWrapper}>
           <Button variant="contained" onClick={this.onNextButtonClick}>
-            Next
+            Check PTCC
           </Button>
         </Grid>
       </>

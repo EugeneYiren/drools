@@ -14,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 const useStyles = () => ({
   table: {
-    maxWidth: 720,
+    maxWidth: 1080,
   },
   checkIcon: {
     color: 'green',
