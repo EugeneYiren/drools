@@ -341,7 +341,7 @@ class EugeneOMS extends Component {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl className={classes.formControl}>
+              <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="execution-type-outlined-label">
                   Execution Type
                 </InputLabel>
