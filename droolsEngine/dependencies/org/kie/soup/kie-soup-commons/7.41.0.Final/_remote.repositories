@@ -1,4 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Aug 04 15:23:28 SGT 2020
+#Fri Aug 14 12:46:53 SGT 2020
 kie-soup-commons-7.41.0.Final.jar>central=
+kie-soup-commons-7.41.0.Final-sources.jar>central=
 kie-soup-commons-7.41.0.Final.pom>central=

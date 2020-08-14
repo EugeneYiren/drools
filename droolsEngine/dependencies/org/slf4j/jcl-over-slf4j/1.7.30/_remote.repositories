@@ -1,4 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Aug 04 15:23:29 SGT 2020
-jcl-over-slf4j-1.7.30.pom>central=
+#Fri Aug 14 12:46:19 SGT 2020
+jcl-over-slf4j-1.7.30-sources.jar>central=
 jcl-over-slf4j-1.7.30.jar>central=
+jcl-over-slf4j-1.7.30.pom>central=

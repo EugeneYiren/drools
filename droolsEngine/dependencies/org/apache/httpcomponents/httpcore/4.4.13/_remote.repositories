@@ -1,4 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Aug 04 11:58:07 SGT 2020
-httpcore-4.4.13.pom>central=
+#Fri Aug 14 12:46:28 SGT 2020
 httpcore-4.4.13.jar>central=
+httpcore-4.4.13.pom>central=
+httpcore-4.4.13-sources.jar>central=

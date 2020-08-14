@@ -1,4 +1,5 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Aug 04 15:23:29 SGT 2020
+#Fri Aug 14 12:47:09 SGT 2020
 guice-4.0.pom>central=
+guice-4.0-sources.jar>central=
 guice-4.0-no_aop.jar>central=
