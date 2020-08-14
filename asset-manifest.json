@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/drools/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/drools/static/js/main.81a1998c.chunk.js",
-    "main.js.map": "/drools/static/js/main.81a1998c.chunk.js.map",
+    "main.js": "/drools/static/js/main.38fe7a5e.chunk.js",
+    "main.js.map": "/drools/static/js/main.38fe7a5e.chunk.js.map",
     "runtime-main.js": "/drools/static/js/runtime-main.27548785.js",
     "runtime-main.js.map": "/drools/static/js/runtime-main.27548785.js.map",
     "static/js/2.e2069c69.chunk.js": "/drools/static/js/2.e2069c69.chunk.js",
     "static/js/2.e2069c69.chunk.js.map": "/drools/static/js/2.e2069c69.chunk.js.map",
     "index.html": "/drools/index.html",
-    "precache-manifest.88d22027d6b0abdd2ce9a075be59cc65.js": "/drools/precache-manifest.88d22027d6b0abdd2ce9a075be59cc65.js",
+    "precache-manifest.ae86a456da81722449fd36e7e6b16730.js": "/drools/precache-manifest.ae86a456da81722449fd36e7e6b16730.js",
     "service-worker.js": "/drools/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/drools/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.e2069c69.chunk.js.LICENSE.txt": "/drools/static/js/2.e2069c69.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.27548785.js",
     "static/js/2.e2069c69.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.81a1998c.chunk.js"
+    "static/js/main.38fe7a5e.chunk.js"
   ]
 }
