@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { withStyles } from '@material-ui/core/styles'
@@ -208,6 +207,6 @@ const mapDispatchToProps = {
   getPrrCprRule: getPrrCprRuleAction,
 }
 
-export default withRouter(
-  withStyles(useStyles)(connect(mapStateToProps, mapDispatchToProps)(HomePage))
+export default withStyles(useStyles)(
+  connect(mapStateToProps, mapDispatchToProps)(HomePage)
 )
