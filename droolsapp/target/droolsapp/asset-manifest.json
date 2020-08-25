@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "http://localhost:8080/droolsapp/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "http://localhost:8080/droolsapp/static/js/main.f862a786.chunk.js",
+    "main.js.map": "http://localhost:8080/droolsapp/static/js/main.f862a786.chunk.js.map",
+    "runtime-main.js": "http://localhost:8080/droolsapp/static/js/runtime-main.d962ad40.js",
+    "runtime-main.js.map": "http://localhost:8080/droolsapp/static/js/runtime-main.d962ad40.js.map",
+    "static/js/2.44c77f9c.chunk.js": "http://localhost:8080/droolsapp/static/js/2.44c77f9c.chunk.js",
+    "static/js/2.44c77f9c.chunk.js.map": "http://localhost:8080/droolsapp/static/js/2.44c77f9c.chunk.js.map",
+    "index.html": "http://localhost:8080/droolsapp/index.html",
+    "precache-manifest.e1db1845c545adcdb462d7a8b923dbb2.js": "http://localhost:8080/droolsapp/precache-manifest.e1db1845c545adcdb462d7a8b923dbb2.js",
+    "service-worker.js": "http://localhost:8080/droolsapp/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "http://localhost:8080/droolsapp/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.44c77f9c.chunk.js.LICENSE.txt": "http://localhost:8080/droolsapp/static/js/2.44c77f9c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d962ad40.js",
+    "static/js/2.44c77f9c.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.f862a786.chunk.js"
+  ]
+}
